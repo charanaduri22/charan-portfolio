@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINEMATIC AI — Your Ultimate Movie Recommender</title>
+    <meta name="description" content="Discover your next obsession with CINEMATIC AI — a premium movie and series recommender powered by smart curation.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <style>
+/* === RESET & BASE === */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--surface:#12121a;--surface2:#1a1a2e;--surface3:#242440;
+  --cyan:#22d3ee;--cyan-dim:rgba(34,211,238,0.15);--cyan-glow:rgba(34,211,238,0.4);
+  --purple:#a855f7;--purple-dim:rgba(168,85,247,0.15);
+  --pink:#ec4899;--pink-dim:rgba(236,72,153,0.15);
+  --amber:#fbbf24;--amber-dim:rgba(251,191,36,0.15);
+  --red:#e50914;--blue:#00a8e8;--indigo:#113ccf;
+  --text:#e2e2e6;--text-dim:#9ca3af;--text-muted:#6b7280;
+  --border:rgba(255,255,255,0.06);--glass:rgba(18,18,26,0.7);
+  --radius:12px;--radius-sm:8px;--radius-xs:6px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:99px}
+
+/* === SPLASH === */
+.splash{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s ease}
+.splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+.splash-content{text-align:center}
+.splash-logo{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,8vw,4rem);font-weight:800;color:var(--cyan);text-shadow:0 0 30px var(--cyan-glow),0 0 60px rgba(34,211,238,0.2);letter-spacing:-.02em;opacity:0;transform:scale(.9);animation:splashIn .8s ease forwards}
+.splash-tagline{font-size:.95rem;color:var(--text-dim);margin-top:12px;opacity:0;animation:fadeUp .6s ease .6s forwards}
+@keyframes splashIn{to{opacity:1;transform:scale(1)}}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.splash-tagline{transform:translateY(10px)}
+
+/* === TOPBAR === */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(10,10,15,0.75);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:transform .3s ease}
+.topbar.hidden{transform:translateY(-100%)}
+.topbar-avatar{width:36px;height:36px;border-radius:50%;background:var(--surface2);border:1.5px solid rgba(34,211,238,0.25);display:flex;align-items:center;justify-content:center;color:var(--cyan);overflow:hidden}
+.topbar-avatar .material-symbols-outlined{font-size:20px}
+.topbar-brand{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:-.01em;color:var(--text)}
+.topbar-brand span{background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.topbar-search-btn{background:none;border:none;color:var(--text-dim);cursor:pointer;padding:6px;border-radius:50%;transition:all .2s}
+.topbar-search-btn:hover{color:var(--cyan);background:var(--cyan-dim)}
+
+/* === SEARCH OVERLAY === */
+.search-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,10,15,0.95);backdrop-filter:blur(30px);opacity:0;visibility:hidden;transition:all .3s ease;padding:20px;overflow-y:auto}
+.search-overlay.open{opacity:1;visibility:visible}
+.search-bar{display:flex;align-items:center;gap:12px;background:var(--surface2);border:1px solid rgba(34,211,238,0.2);border-radius:var(--radius);padding:12px 16px;margin-bottom:24px}
+.search-bar .material-symbols-outlined{color:var(--cyan);font-size:22px}
+.search-bar input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:1rem;font-family:inherit}
+.search-bar input::placeholder{color:var(--text-muted)}
+.search-close{background:none;border:none;color:var(--text-dim);cursor:pointer;padding:4px}
+.search-results{display:grid;gap:12px}
+
+/* === MAIN === */
+.main{padding:72px 0 100px}
+
+/* === HERO === */
+.hero-section{position:relative;margin-bottom:28px}
+.hero-carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:16px;padding:0 20px}
+.hero-carousel::-webkit-scrollbar{display:none}
+.hero-card{min-width:calc(100vw - 40px);max-width:420px;scroll-snap-align:center;border-radius:var(--radius);overflow:hidden;position:relative;cursor:pointer;flex-shrink:0;aspect-ratio:2/3;max-height:520px}
+@media(min-width:768px){.hero-card{min-width:380px;max-width:400px}}
+.hero-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.hero-card:hover img{transform:scale(1.05)}
+.hero-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,15,0.95) 0%,rgba(10,10,15,0.3) 40%,transparent 70%);pointer-events:none}
+.hero-card-info{position:absolute;bottom:0;left:0;right:0;padding:24px;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:var(--cyan-dim);border:1px solid rgba(34,211,238,0.3);border-radius:var(--radius-xs);color:var(--cyan);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.hero-card-info h3{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:4px;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.hero-rating{display:flex;align-items:center;gap:4px;color:var(--amber);font-size:.85rem;font-weight:700;margin-bottom:6px}
+.hero-rating .material-symbols-outlined{font-size:16px;font-variation-settings:'FILL' 1}
+.hero-card-info p{font-size:.8rem;color:var(--text-dim);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hero-dots{display:flex;justify-content:center;gap:6px;margin-top:14px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted);transition:all .3s;cursor:pointer}
+.hero-dot.active{width:20px;border-radius:3px;background:var(--cyan)}
+
+/* === FILTER PILLS === */
+.filter-pills-section{padding:0 20px;margin-bottom:28px}
+.filter-pills{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.filter-pills::-webkit-scrollbar{display:none}
+.filter-pill{white-space:nowrap;padding:8px 18px;border-radius:99px;font-size:.8rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--glass);color:var(--text-dim);transition:all .25s ease;backdrop-filter:blur(10px);flex-shrink:0}
+.filter-pill:hover{border-color:rgba(34,211,238,0.3);color:var(--text)}
+.filter-pill.active{background:var(--cyan);color:#000;border-color:var(--cyan);box-shadow:0 4px 20px var(--cyan-glow)}
+
+/* === CONTENT SECTIONS === */
+.content-section{margin-bottom:36px}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:0 20px;margin-bottom:16px}
+.section-title-group{display:flex;align-items:center;gap:8px}
+.section-icon{color:var(--cyan);font-size:22px}
+.section-header h2{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700}
+.see-all-btn{background:none;border:none;color:var(--cyan);font-size:.8rem;font-weight:600;cursor:pointer;letter-spacing:.03em}
+
+/* === HORIZONTAL SCROLL === */
+.horizontal-scroll{display:flex;gap:14px;overflow-x:auto;padding:0 20px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.horizontal-scroll::-webkit-scrollbar{display:none}
+
+/* === MOVIE CARD === */
+.movie-card{flex-shrink:0;width:150px;cursor:pointer;transition:transform .3s ease}
+.movie-card:hover{transform:translateY(-6px)}
+.movie-card-poster{width:150px;height:225px;border-radius:var(--radius-sm);overflow:hidden;position:relative;background:var(--surface2);margin-bottom:10px}
+.movie-card-poster img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.movie-card:hover .movie-card-poster img{transform:scale(1.08)}
+.movie-card-poster .poster-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.movie-card:hover .poster-overlay{opacity:1}
+.poster-overlay .material-symbols-outlined{font-size:40px;color:var(--cyan);filter:drop-shadow(0 0 10px var(--cyan-glow))}
+.movie-card-info h4{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.movie-card-meta{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--text-dim)}
+.movie-card-meta .material-symbols-outlined{font-size:13px;color:var(--amber);font-variation-settings:'FILL' 1}
+.movie-card-meta .rating{color:var(--amber);font-weight:700}
+
+/* === RECOMMENDER === */
+.recommender-section{padding:0 20px}
+.recommender-desc{color:var(--text-dim);font-size:.85rem;margin-bottom:20px}
+.filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+@media(max-width:500px){.filter-grid{grid-template-columns:1fr}}
+.filter-dropdown-btn{width:100%;display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);cursor:pointer;transition:all .25s;font-family:inherit}
+.filter-dropdown-btn:hover{border-color:rgba(34,211,238,0.3)}
+.filter-emoji{font-size:1.2rem}
+.filter-label-group{flex:1;text-align:left}
+.filter-label-title{display:block;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:2px}
+.filter-label-value{display:block;font-size:.8rem;font-weight:600;color:var(--text)}
+.chevron{font-size:18px!important;color:var(--text-muted);transition:transform .3s}
+.chevron.open{transform:rotate(180deg)}
+.filter-panel{display:none;padding:10px;margin-top:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);gap:6px;flex-wrap:wrap}
+.filter-panel.open{display:flex}
+.filter-chip{padding:6px 12px;border-radius:var(--radius-xs);font-size:.78rem;font-weight:500;cursor:pointer;background:var(--surface2);color:var(--text-dim);border:none;transition:all .2s;font-family:inherit}
+.filter-chip:hover{background:var(--surface3);color:var(--text)}
+.filter-chip.active-genre{background:var(--cyan);color:#000;box-shadow:0 4px 15px var(--cyan-glow)}
+.filter-chip.active-lang{background:var(--purple);color:#fff;box-shadow:0 4px 15px rgba(168,85,247,0.4)}
+.filter-chip.active-cat{background:var(--pink);color:#fff;box-shadow:0 4px 15px rgba(236,72,153,0.4)}
+.filter-chip.active-type{background:var(--amber);color:#000;box-shadow:0 4px 15px rgba(251,191,36,0.4)}
+
+/* === REC RESULTS === */
+.rec-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.rec-empty{text-align:center;padding:48px 20px;color:var(--text-dim)}
+.rec-empty.hide{display:none}
+.rec-empty-icon{font-size:3rem;display:block;margin-bottom:12px}
+.rec-empty h3{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:6px}
+
+/* === MODAL === */
+.modal-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:all .3s;display:flex;align-items:flex-end;justify-content:center}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{width:100%;max-width:500px;max-height:90vh;background:var(--surface);border-radius:var(--radius) var(--radius) 0 0;overflow-y:auto;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.modal-overlay.open .modal{transform:translateY(0)}
+@media(min-width:768px){.modal{border-radius:var(--radius);max-height:85vh;margin-bottom:auto;margin-top:auto}}
+.modal-close{position:absolute;top:12px;right:12px;z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.6);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.modal-poster{width:100%;aspect-ratio:2/3;max-height:400px;overflow:hidden;position:relative}
+.modal-poster img{width:100%;height:100%;object-fit:cover}
+.modal-poster::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to top,var(--surface),transparent)}
+.modal-body{padding:20px;margin-top:-40px;position:relative;z-index:2}
+.modal-body h2{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:8px}
+.modal-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.modal-badge{padding:4px 10px;border-radius:var(--radius-xs);font-size:.7rem;font-weight:600}
+.badge-type{background:var(--cyan-dim);color:var(--cyan)}
+.badge-year{background:var(--surface2);color:var(--text-dim)}
+.badge-genre{background:var(--purple-dim);color:#d8b4fe}
+.badge-lang{background:var(--surface2);color:var(--text-dim)}
+.modal-rating{display:flex;align-items:center;gap:6px;margin-bottom:14px}
+.modal-rating .material-symbols-outlined{font-size:20px;color:var(--amber);font-variation-settings:'FILL' 1}
+.modal-rating .val{font-size:1.3rem;font-weight:800;color:var(--amber)}
+.modal-rating .max{color:var(--text-muted);font-size:.85rem}
+.modal-synopsis{color:var(--text-dim);font-size:.9rem;line-height:1.7;margin-bottom:16px}
+.modal-otts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.ott-tag{padding:6px 14px;border-radius:var(--radius-xs);font-size:.75rem;font-weight:700;color:#fff}
+.ott-netflix{background:var(--red)}.ott-prime{background:var(--blue)}.ott-hotstar{background:var(--indigo)}
+.modal-duration{display:flex;align-items:center;gap:6px;color:var(--text-dim);font-size:.85rem}
+.modal-duration .material-symbols-outlined{font-size:18px}
+
+/* === BOTTOM NAV === */
+.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;justify-content:space-around;align-items:center;height:70px;background:rgba(10,10,15,0.9);backdrop-filter:blur(24px);border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom)}
+.bottomnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--text-muted);font-size:.65rem;font-weight:500;transition:all .25s;padding:6px 12px;border-radius:var(--radius-sm)}
+.bottomnav-item .material-symbols-outlined{font-size:24px;transition:all .25s}
+.bottomnav-item.active{color:var(--cyan)}
+.bottomnav-item.active .material-symbols-outlined{filter:drop-shadow(0 0 8px var(--cyan-glow))}
+.bottomnav-item:hover{color:var(--cyan)}
+
+/* === SEARCH RESULT CARD === */
+.search-card{display:flex;gap:12px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .2s}
+.search-card:hover{border-color:rgba(34,211,238,0.3);background:var(--surface2)}
+.search-card-img{width:60px;height:90px;border-radius:var(--radius-xs);overflow:hidden;flex-shrink:0;background:var(--surface2)}
+.search-card-img img{width:100%;height:100%;object-fit:cover}
+.search-card-info{flex:1;display:flex;flex-direction:column;justify-content:center}
+.search-card-info h4{font-size:.9rem;font-weight:600;margin-bottom:4px}
+.search-card-info p{font-size:.75rem;color:var(--text-dim)}
+
+/* === ANIMATIONS === */
+@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.animate-in{animation:cardIn .4s ease forwards}
+
+/* === RESPONSIVE === */
+@media(min-width:768px){
+  .main{max-width:1200px;margin:0 auto}
+  .hero-card{min-width:380px}
+  .movie-card{width:170px}
+  .movie-card-poster{width:170px;height:255px}
+  .filter-grid{grid-template-columns:1fr 1fr}
+  .rec-results{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+}
+@media(min-width:1024px){
+  .hero-carousel{justify-content:center}
+  .filter-grid{grid-template-columns:repeat(4,1fr)}
+}
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div class="splash" id="splash">
+        <div class="splash-content">
+            <div class="splash-logo" id="splashLogo"></div>
+            <div class="splash-tagline" id="splashTagline">Your Next Obsession Awaits</div>
+        </div>
+    </div>
+
+    <!-- App Shell -->
+    <div class="app" id="app" style="opacity:0">
+        <!-- Top Bar -->
+        <header class="topbar" id="topbar">
+            <div class="topbar-left">
+                <a href="index.html" style="text-decoration:none; color:inherit;" class="topbar-avatar" title="Back to Portfolio">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </a>
+            </div>
+            <h1 class="topbar-brand">CINEMATIC <span>AI</span></h1>
+            <button class="topbar-search-btn" id="searchToggle">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </header>
+
+        <!-- Search Overlay -->
+        <div class="search-overlay" id="searchOverlay">
+            <div class="search-bar">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" id="searchInput" placeholder="Search movies, series, genres..." autocomplete="off">
+                <button class="search-close" id="searchClose">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <main class="main">
+            <!-- Hero Carousel -->
+            <section class="hero-section" id="heroSection">
+                <div class="hero-carousel" id="heroCarousel"></div>
+                <div class="hero-dots" id="heroDots"></div>
+            </section>
+
+            <!-- Genre Filter Pills -->
+            <section class="filter-pills-section">
+                <div class="filter-pills" id="filterPills"></div>
+            </section>
+
+            <!-- Trending Now -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <span class="material-symbols-outlined section-icon">local_fire_department</span>
+                        <h2>Trending Now</h2>
+                    </div>
+                    <button class="see-all-btn">See All</button>
+                </div>
+                <div class="horizontal-scroll" id="trendingScroll"></div>
+            </section>
+
+            <!-- Bollywood Picks -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <span class="material-symbols-outlined section-icon">movie_filter</span>
+                        <h2>Bollywood Picks</h2>
+                    </div>
+                </div>
+                <div class="horizontal-scroll" id="bollywoodScroll"></div>
+            </section>
+
+            <!-- Hollywood Hits -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <span class="material-symbols-outlined section-icon">globe</span>
+                        <h2>Hollywood Hits</h2>
+                    </div>
+                </div>
+                <div class="horizontal-scroll" id="hollywoodScroll"></div>
+            </section>
+
+            <!-- Smart Recommender Section -->
+            <section class="content-section recommender-section">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <span class="material-symbols-outlined section-icon">magic_button</span>
+                        <h2>Smart Recommender</h2>
+                    </div>
+                </div>
+                <p class="recommender-desc">Select your preferences to get personalized picks</p>
+
+                <div class="filter-grid">
+                    <div class="filter-dropdown" id="genreDropdown">
+                        <button class="filter-dropdown-btn" data-target="genrePanel">
+                            <span class="filter-emoji">🎬</span>
+                            <div class="filter-label-group">
+                                <span class="filter-label-title">Genres</span>
+                                <span class="filter-label-value" id="genreLabel">Select genres</span>
+                            </div>
+                            <span class="material-symbols-outlined chevron">expand_more</span>
+                        </button>
+                        <div class="filter-panel" id="genrePanel"></div>
+                    </div>
+                    <div class="filter-dropdown" id="langDropdown">
+                        <button class="filter-dropdown-btn" data-target="langPanel">
+                            <span class="filter-emoji">🌍</span>
+                            <div class="filter-label-group">
+                                <span class="filter-label-title">Languages</span>
+                                <span class="filter-label-value" id="langLabel">Select languages</span>
+                            </div>
+                            <span class="material-symbols-outlined chevron">expand_more</span>
+                        </button>
+                        <div class="filter-panel" id="langPanel"></div>
+                    </div>
+                    <div class="filter-dropdown" id="catDropdown">
+                        <button class="filter-dropdown-btn" data-target="catPanel">
+                            <span class="filter-emoji">🎭</span>
+                            <div class="filter-label-group">
+                                <span class="filter-label-title">Categories</span>
+                                <span class="filter-label-value" id="catLabel">All categories</span>
+                            </div>
+                            <span class="material-symbols-outlined chevron">expand_more</span>
+                        </button>
+                        <div class="filter-panel" id="catPanel"></div>
+                    </div>
+                    <div class="filter-dropdown" id="typeDropdown">
+                        <button class="filter-dropdown-btn" data-target="typePanel">
+                            <span class="filter-emoji">📺</span>
+                            <div class="filter-label-group">
+                                <span class="filter-label-title">Content Type</span>
+                                <span class="filter-label-value" id="typeLabel">All types</span>
+                            </div>
+                            <span class="material-symbols-outlined chevron">expand_more</span>
+                        </button>
+                        <div class="filter-panel" id="typePanel"></div>
+                    </div>
+                </div>
+
+                <div id="recResults" class="rec-results"></div>
+                <div id="recEmpty" class="rec-empty">
+                    <span class="rec-empty-icon">🍿</span>
+                    <h3>No recommendations yet</h3>
+                    <p>Select genres and languages to get AI-curated picks</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Movie Detail Modal -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal" id="modal">
+                <button class="modal-close" id="modalClose">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="modal-poster" id="modalPoster"></div>
+                <div class="modal-body" id="modalBody"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Nav -->
+        <nav class="bottomnav">
+            <a class="bottomnav-item active" href="#" data-page="home">
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">home</span>
+                <span>Home</span>
+            </a>
+            <a class="bottomnav-item" href="#" data-page="discover">
+                <span class="material-symbols-outlined">explore</span>
+                <span>Discover</span>
+            </a>
+            <a class="bottomnav-item" href="#" data-page="recommend">
+                <span class="material-symbols-outlined">magic_button</span>
+                <span>For You</span>
+            </a>
+            <a class="bottomnav-item" href="index.html" data-page="profile">
+                <span class="material-symbols-outlined">person</span>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+// ===== MOVIE DATABASE =====
+const MOVIES = [
+  {id:'andhadhun',title:'Andhadhun',type:'movie',year:2018,genres:['Thriller','Mystery','Crime'],languages:['Hindi'],rating:8.3,synopsis:'A blind pianist gets entangled in a murder mystery after witnessing a crime. Mind-bending thriller with killer twists!',otts:['netflix'],category:'Bollywood',duration:139,poster:'a_professional_high_fidelity_movie_poster_for_andhadhun._style_moody_neon_noir/screen.png'},
+  {id:'masaan',title:'Masaan',type:'movie',year:2015,genres:['Drama','Romance','Thriller'],languages:['Hindi'],rating:8.0,synopsis:'Four intertwined stories in Varanasi exploring love, loss, and redemption. Beautifully shot indie gem!',otts:['netflix'],category:'Bollywood',duration:152,poster:'a_professional_high_fidelity_movie_poster_for_masaan._style_poetic_cinematic/screen.png'},
+  {id:'ludo',title:'Ludo',type:'movie',year:2020,genres:['Comedy','Drama','Thriller'],languages:['Hindi'],rating:7.2,synopsis:'Four interconnected stories tied together in this chaotic comedy-thriller. Pure entertainment!',otts:['netflix'],category:'Bollywood',duration:151,poster:'a_professional_high_fidelity_movie_poster_for_ludo._style_vibrant_quirky_dark/screen.png'},
+  {id:'selection-day',title:'Selection Day',type:'series',year:2018,genres:['Drama','Sports'],languages:['Hindi','English'],rating:7.8,synopsis:'Two aspiring cricketers navigate dreams, ambitions, and harsh realities. Gripping sports drama!',otts:['netflix'],category:'Bollywood',duration:55,poster:'a_professional_high_fidelity_movie_poster_for_selection_day._style_gritty/screen.png'},
+  {id:'little-things',title:'Little Things',type:'series',year:2016,genres:['Romance','Drama','Comedy'],languages:['Hindi','English'],rating:8.2,synopsis:'Cute romance series exploring the beauty of everyday moments in a relationship. So addictive!',otts:['netflix'],category:'Bollywood',duration:22,poster:'a_professional_high_fidelity_movie_poster_for_little_things._style_cozy/screen.png'},
+  {id:'sacred-games',title:'Sacred Games',type:'series',year:2018,genres:['Crime','Drama','Thriller'],languages:['Hindi','English'],rating:8.8,synopsis:'Gritty crime thriller interweaving a cop and gangster in Mumbai. Absolute masterpiece!',otts:['netflix'],category:'Bollywood',duration:60,poster:'a_professional_high_fidelity_movie_poster_for_sacred_games._style_gritty_epic/screen.png'},
+  {id:'love-per-sq-ft',title:'Love Per Square Foot',type:'movie',year:2018,genres:['Romance','Comedy'],languages:['Hindi'],rating:6.8,synopsis:'Two strangers fake a marriage to buy an apartment. Hilarious and surprisingly heartwarming!',otts:['netflix'],category:'Bollywood',duration:132,poster:'a_professional_high_fidelity_movie_poster_for_love_per_square_foot._style/screen.png'},
+  {id:'aashram',title:'Aashram',type:'series',year:2020,genres:['Crime','Drama','Thriller'],languages:['Hindi'],rating:8.5,synopsis:'Exposé on fake godmen and cults. Dark, intense, and brutally honest thriller!',otts:['netflix'],category:'Bollywood',duration:50,poster:'a_professional_high_fidelity_movie_poster_for_aashram._style_dark_intense_crime/screen.png'},
+  {id:'girls-hostel',title:'Girls Hostel',type:'series',year:2018,genres:['Comedy','Drama'],languages:['Hindi'],rating:6.5,synopsis:'College girls navigating friendships, crushes, and life. Fun and relatable!',otts:['netflix'],category:'Bollywood',duration:40,poster:'a_professional_high_fidelity_movie_poster_for_girls_hostel._style_vibrant/screen.png'},
+  {id:'the-platform',title:'The Platform',type:'movie',year:2019,genres:['Sci-Fi','Thriller','Drama'],languages:['Spanish','English'],rating:7.3,synopsis:'A man wakes up in a vertical prison where food is distributed from top to bottom. Wild dystopian concept!',otts:['netflix'],category:'Hollywood',duration:94,poster:'a_professional_high_fidelity_movie_poster_for_the_platform._style_gritty/screen.png'},
+  {id:'stranger-things',title:'Stranger Things',type:'series',year:2016,genres:['Drama','Fantasy','Horror'],languages:['English'],rating:8.7,synopsis:'Kids uncover mysteries and monsters in a supernatural small town. Iconic series!',otts:['netflix'],category:'Hollywood',duration:45,poster:'a_professional_high_fidelity_movie_poster_for_stranger_things._style_retro_80s/screen.png'},
+  {id:'ozark',title:'Ozark',type:'series',year:2017,genres:['Crime','Drama','Thriller'],languages:['English'],rating:8.6,synopsis:'Accountant turned money launderer. Intense crime saga!',otts:['netflix'],category:'Hollywood',duration:60,poster:'a_professional_high_fidelity_movie_poster_for_ozark._style_moody_dark_crime/screen.png'},
+  {id:'mirzapur',title:'Mirzapur',type:'series',year:2018,genres:['Action','Crime','Drama'],languages:['Hindi'],rating:8.5,synopsis:'Gun merchant family in Mirzapur. Insane action and dark humor!',otts:['prime'],category:'Bollywood',duration:60,poster:'a_professional_high_fidelity_movie_poster_for_mirzapur._style_raw_gritty_crime/screen.png'},
+  {id:'the-family-man',title:'The Family Man',type:'series',year:2019,genres:['Action','Comedy','Drama'],languages:['Hindi','Tamil','Telugu'],rating:8.7,synopsis:'Spy balances family life and dangerous missions. Peak Indian web series!',otts:['prime'],category:'Bollywood',duration:50,poster:'a_professional_high_fidelity_movie_poster_for_the_family_man._style_high_stakes/screen.png'},
+  {id:'panchayat',title:'Panchayat',type:'series',year:2020,genres:['Comedy','Drama'],languages:['Hindi'],rating:8.9,synopsis:'Young engineer becomes secretary of village panchayat. Wholesome masterpiece!',otts:['prime'],category:'Bollywood',duration:40,poster:'a_professional_high_fidelity_movie_poster_for_panchayat._style_whimsical/screen.png'},
+  {id:'pathaan',title:'Pathaan',type:'movie',year:2023,genres:['Action','Thriller','Drama'],languages:['Hindi','English'],rating:6.3,synopsis:'RAW agent takes down terrorist organization. Blockbuster action film!',otts:['hotstar'],category:'Bollywood',duration:147,poster:'a_professional_high_fidelity_movie_poster_for_pathaan._style_explosive_high/screen.png'},
+  {id:'drishyam-2',title:'Drishyam 2',type:'movie',year:2022,genres:['Thriller','Mystery','Drama'],languages:['Hindi','Malayalam','Kannada','Tamil','Telugu'],rating:8.2,synopsis:'Man uses movies to cover up crimes. Brilliant sequel with mind-bending twists!',otts:['hotstar'],category:'Bollywood',duration:154,poster:'a_professional_high_fidelity_movie_poster_for_drishyam_2._style_intense_clever/screen.png'},
+  {id:'inception',title:'Inception',type:'movie',year:2010,genres:['Action','Sci-Fi','Thriller'],languages:['English'],rating:8.8,synopsis:'Thief steals secrets from dreams. Mind-bending masterpiece by Christopher Nolan!',otts:['netflix'],category:'Hollywood',duration:148,poster:'a_professional_high_fidelity_movie_poster_for_inception._style_mind_bending_sci/screen.png'},
+  {id:'interstellar',title:'Interstellar',type:'movie',year:2014,genres:['Adventure','Drama','Sci-Fi'],languages:['English'],rating:8.6,synopsis:'Pilot travels through wormhole to save humanity. Epic sci-fi masterpiece!',otts:['netflix'],category:'Hollywood',duration:169,poster:'a_professional_high_fidelity_movie_poster_for_interstellar._style_epic/screen.png'},
+  {id:'the-dark-knight',title:'The Dark Knight',type:'movie',year:2008,genres:['Action','Crime','Drama'],languages:['English'],rating:9.0,synopsis:'Batman battles the Joker in Gotham City. Greatest superhero film ever made!',otts:['netflix'],category:'Hollywood',duration:152,poster:'a_professional_high_fidelity_movie_poster_for_the_dark_knight._style_gritty/screen.png'},
+  {id:'parasite',title:'Parasite',type:'movie',year:2019,genres:['Drama','Thriller'],languages:['Korean'],rating:8.6,synopsis:'Poor family infiltrates wealthy household. Brilliant social commentary and Oscar winner!',otts:['netflix'],category:'Hollywood',duration:132,poster:'a_professional_high_fidelity_movie_poster_for_parasite._style_sharp_satirical/screen.png'},
+  {id:'wednesday',title:'Wednesday',type:'series',year:2022,genres:['Comedy','Crime','Fantasy'],languages:['English'],rating:8.1,synopsis:'Addams family daughter solves mystery at school. Dark comedy hit!',otts:['netflix'],category:'Hollywood',duration:50,poster:'a_professional_high_fidelity_movie_poster_for_wednesday._style_dark_gothic/screen.png'},
+  {id:'dune',title:'Dune',type:'movie',year:2021,genres:['Sci-Fi','Adventure','Drama'],languages:['English'],rating:8.0,synopsis:'A noble family becomes embroiled in a war for control of the most valuable asset in the galaxy.',otts:['netflix'],category:'Hollywood',duration:155,poster:'a_professional_high_fidelity_movie_poster_for_dune._style_epic_cinematic_sci/screen.png'},
+  {id:'everything-everywhere',title:'Everything Everywhere All at Once',type:'movie',year:2022,genres:['Action','Adventure','Comedy'],languages:['English'],rating:7.8,synopsis:'An aging Chinese immigrant is swept up in an insane adventure across the multiverse.',otts:['netflix'],category:'Hollywood',duration:139,poster:'a_professional_high_fidelity_movie_poster_for_everything_everywhere_all_at/screen.png'},
+  {id:'the-batman',title:'The Batman',type:'movie',year:2022,genres:['Action','Crime','Drama'],languages:['English'],rating:7.8,synopsis:'Batman ventures into Gotham underworld when a sadistic killer leaves behind clues.',otts:['netflix'],category:'Hollywood',duration:176,poster:'a_professional_high_fidelity_movie_poster_for_the_batman._style_gritty/screen.png'},
+  {id:'top-gun',title:'Top Gun: Maverick',type:'movie',year:2022,genres:['Action','Drama'],languages:['English'],rating:8.3,synopsis:'After 30+ years of service, Pete Mitchell is pushed to confront his deepest fears.',otts:['prime'],category:'Hollywood',duration:130,poster:'a_professional_high_fidelity_movie_poster_for_top_gun_maverick._style_high/screen.png'},
+  {id:'the-whale',title:'The Whale',type:'movie',year:2022,genres:['Drama'],languages:['English'],rating:7.7,synopsis:'A reclusive English teacher attempts to reconnect with his estranged teenage daughter.',otts:['netflix'],category:'Hollywood',duration:117,poster:'a_professional_high_fidelity_movie_poster_for_the_whale._style_intimate/screen.png'},
+  {id:'tumbbad',title:'Tumbbad',type:'movie',year:2018,genres:['Horror','Fantasy','Thriller'],languages:['Hindi'],rating:8.3,synopsis:'A mythological story about a goddess who created the entire universe. Dark Indian folk horror masterpiece!',otts:['prime'],category:'Bollywood',duration:104,poster:'a_professional_high_fidelity_movie_poster_for_tumbbad._style_atmospheric_dark/screen.png'},
+  {id:'vikram-vedha',title:'Vikram Vedha',type:'movie',year:2022,genres:['Action','Crime','Thriller'],languages:['Hindi'],rating:7.4,synopsis:'A cop finds his mission getting complicated when a gangster offers to surrender and tells three stories that change his perception.',otts:['netflix'],category:'Bollywood',duration:147,poster:'a_professional_high_fidelity_movie_poster_for_vikram_vedha._style_gritty_neo/screen.png'},
+  {id:'jawan',title:'Jawan',type:'movie',year:2023,genres:['Action','Thriller','Drama'],languages:['Hindi'],rating:7.1,synopsis:'A man is driven by a personal vendetta to rectify the wrongs in society. Massive blockbuster!',otts:['netflix'],category:'Bollywood',duration:169,poster:'a_professional_high_fidelity_movie_poster_for_jawan._style_sleek_high_stakes/screen.png'},
+  {id:'kantara',title:'Kantara',type:'movie',year:2022,genres:['Action','Adventure','Drama'],languages:['Kannada'],rating:8.4,synopsis:'A fiery young man clashes with an evil force ravaging his land. Mythical Indian action masterpiece!',otts:['prime'],category:'Bollywood',duration:148,poster:'a_professional_high_fidelity_movie_poster_for_kantara._style_mystical_intense/screen.png'},
+  {id:'rrr',title:'RRR',type:'movie',year:2022,genres:['Action','Drama'],languages:['Hindi','Telugu'],rating:8.0,synopsis:'Two legendary revolutionaries journey away from home before they begin fighting for their country.',otts:['netflix'],category:'Bollywood',duration:187,poster:'a_professional_high_fidelity_movie_poster_for_rrr._style_epic_high_octane/screen.png'},
+];
+
+const GENRES = ['Action','Comedy','Drama','Thriller','Horror','Sci-Fi','Romance','Crime','Adventure','Fantasy','Mystery','Sports'];
+const LANGUAGES = ['Hindi','English','Tamil','Telugu','Kannada','Malayalam','Korean','Spanish'];
+const CATEGORIES = ['Bollywood','Hollywood'];
+const TYPES = ['Movie','Web Series'];
+
+// Path logic for standalone view
+const getPosterUrl = (poster) => "stitch_cinematch_elite_ui/stitch_cinematch_elite_ui/" + poster;
+const fallbackUrl = "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400&auto=format&fit=crop";
+
+// ===== STATE =====
+let selectedGenres=[], selectedLangs=[], selectedCats=[], selectedTypes=[], activeGenrePill='All';
+let heroIndex=0, heroTimer=null;
+
+// ===== HERO MOVIES (top rated) =====
+const HERO_MOVIES = MOVIES.filter(m=>m.rating>=8.3).sort((a,b)=>b.rating-a.rating).slice(0,6);
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', ()=>{
+  // Splash
+  const splash=document.getElementById('splash');
+  const logo=document.getElementById('splashLogo');
+  logo.textContent='CINEMATIC AI';
+  setTimeout(()=>{
+    splash.classList.add('hide');
+    document.getElementById('app').style.opacity='1';
+    document.getElementById('app').style.transition='opacity .6s ease';
+  },2200);
+
+  buildHero();
+  buildFilterPills();
+  buildHorizontalSections();
+  buildRecommenderFilters();
+  setupSearch();
+  setupModal();
+  setupBottomNav();
+});
+
+// ===== HERO CAROUSEL =====
+function buildHero(){
+  const carousel=document.getElementById('heroCarousel');
+  const dots=document.getElementById('heroDots');
+  HERO_MOVIES.forEach((m,i)=>{
+    const card=document.createElement('div');
+    card.className='hero-card';
+    card.onclick=()=>openModal(m);
+    card.innerHTML=`
+      <img src="${getPosterUrl(m.poster)}" alt="${m.title}" loading="${i<2?'eager':'lazy'}" onerror="this.onerror=null; this.src='${fallbackUrl}';">
+      <div class="hero-card-overlay"></div>
+      <div class="hero-card-info">
+        <div class="hero-badge">${m.genres[0]}</div>
+        <h3>${m.title}</h3>
+        <div class="hero-rating">
+          <span class="material-symbols-outlined">star</span>
+          <span>${m.rating.toFixed(1)}</span>
+        </div>
+        <p>${m.synopsis}</p>
+      </div>`;
+    carousel.appendChild(card);
+
+    const dot=document.createElement('div');
+    dot.className='hero-dot'+(i===0?' active':'');
+    dot.onclick=()=>scrollHeroTo(i);
+    dots.appendChild(dot);
+  });
+
+  carousel.addEventListener('scroll',()=>{
+    const idx=Math.round(carousel.scrollLeft/(carousel.firstElementChild.offsetWidth+16));
+    updateHeroDots(idx);
+  });
+
+  // Auto-scroll
+  startHeroAuto();
+}
+
+function scrollHeroTo(i){
+  const carousel=document.getElementById('heroCarousel');
+  const w=carousel.firstElementChild.offsetWidth+16;
+  carousel.scrollTo({left:w*i,behavior:'smooth'});
+  updateHeroDots(i);
+  heroIndex=i;
+  startHeroAuto();
+}
+
+function updateHeroDots(i){
+  document.querySelectorAll('.hero-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+
+function startHeroAuto(){
+  clearInterval(heroTimer);
+  heroTimer=setInterval(()=>{
+    heroIndex=(heroIndex+1)%HERO_MOVIES.length;
+    scrollHeroTo(heroIndex);
+  },4500);
+}
+
+// ===== FILTER PILLS =====
+function buildFilterPills(){
+  const container=document.getElementById('filterPills');
+  const pills=['All',...GENRES];
+  pills.forEach(g=>{
+    const btn=document.createElement('button');
+    btn.className='filter-pill'+(g==='All'?' active':'');
+    btn.textContent=g;
+    btn.onclick=()=>{
+      activeGenrePill=g;
+      container.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      buildHorizontalSections();
+    };
+    container.appendChild(btn);
+  });
+}
+
+// ===== HORIZONTAL SECTIONS =====
+function buildHorizontalSections(){
+  const filter=m=> activeGenrePill==='All' || m.genres.includes(activeGenrePill);
+  const trending=MOVIES.filter(filter).sort((a,b)=>b.rating-a.rating).slice(0,12);
+  const bollywood=MOVIES.filter(m=>m.category==='Bollywood'&&filter(m)).sort((a,b)=>b.rating-a.rating);
+  const hollywood=MOVIES.filter(m=>m.category==='Hollywood'&&filter(m)).sort((a,b)=>b.rating-a.rating);
+
+  fillScroll('trendingScroll',trending);
+  fillScroll('bollywoodScroll',bollywood);
+  fillScroll('hollywoodScroll',hollywood);
+}
+
+function fillScroll(id,movies){
+  const el=document.getElementById(id);
+  el.innerHTML='';
+  movies.forEach((m,i)=>{
+    const card=createCard(m,i);
+    el.appendChild(card);
+  });
+}
+
+function createCard(m,i){
+  const d=document.createElement('div');
+  d.className='movie-card animate-in';
+  d.style.animationDelay=`${i*0.06}s`;
+  d.onclick=()=>openModal(m);
+  const h=Math.floor(m.duration/60), min=m.duration%60;
+  d.innerHTML=`
+    <div class="movie-card-poster">
+      <img src="${getPosterUrl(m.poster)}" alt="${m.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackUrl}';">
+      <div class="poster-overlay"><span class="material-symbols-outlined">play_circle</span></div>
+    </div>
+    <div class="movie-card-info">
+      <h4>${m.title}</h4>
+      <div class="movie-card-meta">
+        <span class="material-symbols-outlined">star</span>
+        <span class="rating">${m.rating.toFixed(1)}</span>
+        <span>• ${m.year}</span>
+        <span>• ${h}h ${min}m</span>
+      </div>
+    </div>`;
+  return d;
+}
+
+// ===== RECOMMENDER FILTERS =====
+function buildRecommenderFilters(){
+  buildChips('genrePanel',GENRES,'genre');
+  buildChips('langPanel',LANGUAGES,'lang');
+  buildChips('catPanel',CATEGORIES,'cat');
+  buildChips('typePanel',TYPES,'type');
+
+  // Toggle panels
+  document.querySelectorAll('.filter-dropdown-btn').forEach(btn=>{
+    btn.onclick=()=>{
+      const target=btn.getAttribute('data-target');
+      const panel=document.getElementById(target);
+      const chev=btn.querySelector('.chevron');
+      const isOpen=panel.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.filter-panel').forEach(p=>p.classList.remove('open'));
+      document.querySelectorAll('.chevron').forEach(c=>c.classList.remove('open'));
+      if(!isOpen){panel.classList.add('open');chev.classList.add('open');}
+    };
+  });
+}
+
+function buildChips(panelId,items,kind){
+  const panel=document.getElementById(panelId);
+  items.forEach(item=>{
+    const btn=document.createElement('button');
+    btn.className='filter-chip';
+    btn.textContent=item;
+    btn.onclick=()=>toggleFilter(kind,item,btn);
+    panel.appendChild(btn);
+  });
+}
+
+function toggleFilter(kind,val,btn){
+  const map={genre:selectedGenres,lang:selectedLangs,cat:selectedCats,type:selectedTypes};
+  const arr=map[kind];
+  const cls='active-'+kind;
+  const idx=arr.indexOf(val);
+  if(idx>-1){arr.splice(idx,1);btn.classList.remove(cls);}
+  else{arr.push(val);btn.classList.add(cls);}
+  updateFilterLabels();
+  updateRecommendations();
+}
+
+function updateFilterLabels(){
+  document.getElementById('genreLabel').textContent=selectedGenres.length?`${selectedGenres.length} selected`:'Select genres';
+  document.getElementById('langLabel').textContent=selectedLangs.length?`${selectedLangs.length} selected`:'Select languages';
+  document.getElementById('catLabel').textContent=selectedCats.length?`${selectedCats.length} selected`:'All categories';
+  document.getElementById('typeLabel').textContent=selectedTypes.length?`${selectedTypes.length} selected`:'All types';
+}
+
+function updateRecommendations(){
+  const results=document.getElementById('recResults');
+  const empty=document.getElementById('recEmpty');
+  results.innerHTML='';
+
+  if(!selectedGenres.length||!selectedLangs.length){
+    empty.classList.remove('hide');
+    return;
+  }
+
+  let filtered=MOVIES.filter(m=>{
+    const gm=selectedGenres.some(g=>m.genres.includes(g));
+    const lm=selectedLangs.some(l=>m.languages.includes(l));
+    const cm=!selectedCats.length||selectedCats.includes(m.category);
+    const tm=!selectedTypes.length||selectedTypes.includes(m.type==='movie'?'Movie':'Web Series');
+    return gm&&lm&&cm&&tm;
+  }).sort((a,b)=>b.rating-a.rating);
+
+  if(!filtered.length){
+    empty.classList.remove('hide');
+    empty.querySelector('h3').textContent='No matches found';
+    empty.querySelector('p').textContent='Try different filter combinations';
+    return;
+  }
+
+  empty.classList.add('hide');
+  // Smart pick: top 60% + random from rest
+  const cutoff=Math.ceil(filtered.length*0.6);
+  let top=filtered.slice(0,cutoff);
+  let rest=filtered.slice(cutoff);
+  let picks=[];
+  while(picks.length<5&&top.length){
+    const ri=Math.floor(Math.random()*top.length);
+    picks.push(top.splice(ri,1)[0]);
+  }
+  while(picks.length<5&&rest.length){
+    const ri=Math.floor(Math.random()*rest.length);
+    picks.push(rest.splice(ri,1)[0]);
+  }
+
+  picks.forEach((m,i)=>results.appendChild(createCard(m,i)));
+}
+
+// ===== SEARCH =====
+function setupSearch(){
+  const overlay=document.getElementById('searchOverlay');
+  const input=document.getElementById('searchInput');
+  const results=document.getElementById('searchResults');
+
+  document.getElementById('searchToggle').onclick=()=>{
+    overlay.classList.add('open');
+    setTimeout(()=>input.focus(),300);
+  };
+  document.getElementById('searchClose').onclick=()=>{
+    overlay.classList.remove('open');
+    input.value='';
+    results.innerHTML='';
+  };
+
+  input.addEventListener('input',()=>{
+    const q=input.value.trim().toLowerCase();
+    results.innerHTML='';
+    if(!q)return;
+    const matches=MOVIES.filter(m=>
+      m.title.toLowerCase().includes(q)||
+      m.genres.some(g=>g.toLowerCase().includes(q))||
+      m.category.toLowerCase().includes(q)||
+      m.languages.some(l=>l.toLowerCase().includes(q))
+    );
+    matches.forEach(m=>{
+      const card=document.createElement('div');
+      card.className='search-card';
+      card.onclick=()=>{overlay.classList.remove('open');input.value='';openModal(m);};
+      card.innerHTML=`
+        <div class="search-card-img"><img src="${getPosterUrl(m.poster)}" alt="${m.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackUrl}';"></div>
+        <div class="search-card-info">
+          <h4>${m.title}</h4>
+          <p>${m.year} • ${m.genres.join(', ')} • ⭐ ${m.rating.toFixed(1)}</p>
+        </div>`;
+      results.appendChild(card);
+    });
+    if(!matches.length){
+      results.innerHTML='<div style="text-align:center;padding:40px;color:#6b7280">No results found</div>';
+    }
+  });
+}
+
+// ===== MODAL =====
+function setupModal(){
+  const overlay=document.getElementById('modalOverlay');
+  document.getElementById('modalClose').onclick=()=>overlay.classList.remove('open');
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open');});
+}
+
+function openModal(m){
+  const overlay=document.getElementById('modalOverlay');
+  const poster=document.getElementById('modalPoster');
+  const body=document.getElementById('modalBody');
+  const h=Math.floor(m.duration/60), min=m.duration%60;
+  const ottMap={netflix:{cls:'ott-netflix',name:'Netflix'},prime:{cls:'ott-prime',name:'Prime Video'},hotstar:{cls:'ott-hotstar',name:'Hotstar'}};
+
+  poster.innerHTML=`<img src="${getPosterUrl(m.poster)}" alt="${m.title}" onerror="this.onerror=null; this.src='${fallbackUrl}';">`;
+  body.innerHTML=`
+    <h2>${m.title}</h2>
+    <div class="modal-badges">
+      <span class="modal-badge badge-type">${m.type==='movie'?'🎬 Movie':'📺 Series'}</span>
+      <span class="modal-badge badge-year">${m.year}</span>
+      ${m.genres.map(g=>`<span class="modal-badge badge-genre">${g}</span>`).join('')}
+      ${m.languages.map(l=>`<span class="modal-badge badge-lang">${l}</span>`).join('')}
+    </div>
+    <div class="modal-rating">
+      <span class="material-symbols-outlined">star</span>
+      <span class="val">${m.rating.toFixed(1)}</span>
+      <span class="max">/ 10 IMDb</span>
+    </div>
+    <p class="modal-synopsis">${m.synopsis}</p>
+    <div class="modal-otts">
+      ${m.otts.map(o=>`<span class="ott-tag ${ottMap[o].cls}">${ottMap[o].name}</span>`).join('')}
+    </div>
+    <div class="modal-duration">
+      <span class="material-symbols-outlined">schedule</span>
+      <span>${h}h ${min}m</span>
+    </div>`;
+  overlay.classList.add('open');
+}
+
+// ===== BOTTOM NAV =====
+function setupBottomNav(){
+  document.querySelectorAll('.bottomnav-item').forEach(item=>{
+    item.onclick=e=>{
+      if(item.getAttribute('data-page') === 'profile') return; // let profile link to portfolio
+      e.preventDefault();
+      document.querySelectorAll('.bottomnav-item').forEach(i=>i.classList.remove('active'));
+      item.classList.add('active');
+      const page=item.getAttribute('data-page');
+      if(page==='recommend'){
+        document.querySelector('.recommender-section').scrollIntoView({behavior:'smooth',block:'start'});
+      }else if(page==='home'){
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+    };
+  });
+}
+
+// ===== TOPBAR HIDE ON SCROLL =====
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const curr=window.pageYOffset;
+  const topbar=document.getElementById('topbar');
+  if(curr>lastScroll&&curr>80)topbar.classList.add('hidden');
+  else topbar.classList.remove('hidden');
+  lastScroll=curr;
+},{passive:true});
+    </script>
+</body>
+</html>
