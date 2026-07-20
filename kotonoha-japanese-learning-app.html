@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ことのは — Kotonoha | Learn Japanese</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --washi:#f3ecdc;
+    --washi-deep:#eae0c6;
+    --washi-card:#f8f3e6;
+    --paper-edge:#dcd0ac;
+    --ink:#26221b;
+    --ink-soft:#6b6152;
+    --ink-faint:#94897290;
+    --shu:#bd3b2c;
+    --shu-deep:#8c2a1e;
+    --shu-wash:#bd3b2c14;
+    --gold:#a9863f;
+    --gold-soft:#a9863f55;
+    --indigo:#33495a;
+    --indigo-soft:#33495a1a;
+    --green:#4b6b46;
+    --green-wash:#4b6b4614;
+    --shadow-soft: 0 10px 26px -14px rgba(38,34,27,.45);
+    --shadow-card: 0 18px 40px -18px rgba(38,34,27,.5);
+    --radius: 6px;
+    --serif-jp: 'Shippori Mincho', 'Hiragino Mincho ProN', serif;
+    --sans-jp: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+    --serif-en: 'Cormorant Garamond', serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--washi);
+    color:var(--ink);
+    font-family:var(--sans-jp);
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.5;
+    mix-blend-mode:multiply;
+    z-index:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:
+      radial-gradient(ellipse 700px 480px at 8% -6%, var(--shu-wash), transparent 60%),
+      radial-gradient(ellipse 640px 520px at 104% 8%, var(--indigo-soft), transparent 65%),
+      radial-gradient(ellipse 900px 600px at 50% 110%, var(--gold-soft), transparent 60%);
+  }
+
+  h1,h2,h3{font-family:var(--serif-jp); color:var(--ink); margin:0; font-weight:600;}
+  .eyebrow{
+    font-family:var(--serif-en); font-style:italic; letter-spacing:.06em;
+    color:var(--ink-soft); font-size:.95rem;
+  }
+  button{font-family:inherit;}
+
+  /* ---------- layout shell ---------- */
+  .app{position:relative; z-index:1; max-width:980px; margin:0 auto; padding:0 20px 80px;}
+
+  header.top{
+    position:sticky; top:0; z-index:20;
+    background:linear-gradient(var(--washi-deep), var(--washi-deep) 85%, transparent);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--gold-soft);
+  }
+  .top-inner{
+    max-width:980px; margin:0 auto; padding:16px 20px 12px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand-mark{
+    width:46px; height:46px; border:2px solid var(--shu);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif-jp); font-size:1.35rem; color:var(--shu);
+    border-radius:3px; flex-shrink:0;
+    background:var(--washi-card);
+  }
+  .brand-text h1{font-size:1.5rem; letter-spacing:.02em;}
+  .brand-text .eyebrow{font-size:.78rem; display:block; margin-top:-2px;}
+
+  nav.tabs{display:flex; gap:4px; flex-wrap:wrap;}
+  nav.tabs button{
+    background:none; border:none; cursor:pointer;
+    padding:8px 14px 10px; color:var(--ink-soft);
+    display:flex; flex-direction:column; align-items:center; gap:1px;
+    border-bottom:2px solid transparent;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  nav.tabs button .jp{font-family:var(--serif-jp); font-size:1.05rem; color:inherit;}
+  nav.tabs button .en{font-family:var(--serif-en); font-style:italic; font-size:.68rem; letter-spacing:.04em;}
+  nav.tabs button:hover{color:var(--ink);}
+  nav.tabs button.active{color:var(--shu); border-color:var(--shu);}
+
+  .seal-mini{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--serif-en); font-size:.8rem; color:var(--ink-soft);
+  }
+  .flame{color:var(--shu); font-size:1rem;}
+  .streak-num{font-family:var(--serif-jp); color:var(--ink); font-size:1.05rem;}
+
+  main{padding-top:28px; position:relative; z-index:1;}
+  section.view{display:none; animation:fadeUp .5s ease both;}
+  section.view.active{display:block;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  .section-head{margin-bottom:22px;}
+  .section-head h2{font-size:1.7rem;}
+  .section-head p{color:var(--ink-soft); margin-top:4px; max-width:60ch; line-height:1.5;}
+
+  .divider{
+    display:flex; align-items:center; gap:14px; margin:34px 0 26px; color:var(--gold);
+  }
+  .divider::before,.divider::after{content:''; height:1px; flex:1; background:var(--gold-soft);}
+
+  /* ---------- vocab / flashcards ---------- */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+  .chip{
+    border:1px solid var(--gold-soft); background:var(--washi-card);
+    padding:7px 14px; border-radius:999px; cursor:pointer;
+    font-size:.85rem; color:var(--ink-soft); transition:.2s ease;
+  }
+  .chip .jp{font-family:var(--serif-jp); margin-right:5px; color:inherit;}
+  .chip:hover{border-color:var(--shu); color:var(--ink);}
+  .chip.active{background:var(--shu); border-color:var(--shu); color:#fbf3e4;}
+
+  .deck-meta{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.82rem; color:var(--ink-soft); margin-bottom:8px;
+  }
+  .progress-track{height:3px; background:var(--paper-edge); border-radius:3px; overflow:hidden; margin-bottom:26px;}
+  .progress-fill{height:100%; background:var(--shu); transition:width .35s ease;}
+
+  .card-stage{perspective:1400px; max-width:520px; margin:0 auto;}
+  .flashcard{
+    position:relative; width:100%; aspect-ratio:3/2;
+    transform-style:preserve-3d; transition:transform .55s cubic-bezier(.3,.9,.3,1);
+    cursor:pointer;
+  }
+  .flashcard.flipped{transform:rotateY(180deg);}
+  .face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius:var(--radius); border:1px solid var(--paper-edge);
+    background:var(--washi-card); box-shadow:var(--shadow-card);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:26px; text-align:center;
+  }
+  .face::before{
+    content:''; position:absolute; inset:10px; border:1px solid var(--gold-soft); border-radius:3px; pointer-events:none;
+  }
+  .face.back{transform:rotateY(180deg);}
+  .face .cat-tag{
+    position:absolute; top:16px; left:18px; font-size:.7rem; letter-spacing:.08em;
+    color:var(--ink-faint); text-transform:uppercase; font-family:var(--serif-en); font-style:italic;
+  }
+  .face .big-jp{font-family:var(--serif-jp); font-size:3rem; color:var(--ink); line-height:1.1;}
+  .face .romaji{margin-top:10px; color:var(--ink-soft); font-size:1.05rem; letter-spacing:.03em;}
+  .face .front-meaning{
+    margin-top:12px; font-family:var(--serif-en); font-style:italic; font-size:1.05rem;
+    color:var(--indigo); padding-top:10px; border-top:1px dashed var(--paper-edge); max-width:82%;
+  }
+  .face .big-en{font-size:1.5rem; color:var(--ink); font-weight:500; max-width:80%;}
+  .face .hint{position:absolute; bottom:14px; font-size:.72rem; color:var(--ink-faint); font-style:italic; font-family:var(--serif-en);}
+  .speak-btn{
+    position:absolute; top:14px; right:16px; width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--gold-soft); background:var(--washi); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--indigo);
+  }
+  .speak-btn:hover{border-color:var(--indigo); }
+
+  .card-controls{display:flex; align-items:center; justify-content:center; gap:14px; margin-top:22px; flex-wrap:wrap;}
+  .icon-btn{
+    width:42px; height:42px; border-radius:50%; border:1px solid var(--paper-edge);
+    background:var(--washi-card); cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink);
+    transition:.2s ease;
+  }
+  .icon-btn:hover{border-color:var(--ink);}
+
+  .verdict-row{display:flex; gap:12px; justify-content:center; margin-top:18px; flex-wrap:wrap;}
+  .btn{
+    border:1px solid var(--ink); background:transparent; padding:11px 22px; border-radius:3px;
+    cursor:pointer; font-size:.9rem; letter-spacing:.02em; color:var(--ink); transition:.2s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn:hover{background:var(--ink); color:var(--washi-card);}
+  .btn.primary{background:var(--shu); border-color:var(--shu); color:#fbf3e4;}
+  .btn.primary:hover{background:var(--shu-deep); border-color:var(--shu-deep);}
+  .btn.ghost{border-color:var(--indigo); color:var(--indigo);}
+  .btn.ghost:hover{background:var(--indigo); color:var(--washi-card);}
+  .btn.small{padding:7px 14px; font-size:.8rem;}
+
+  .empty-note{text-align:center; color:var(--ink-soft); padding:60px 20px; font-family:var(--serif-en); font-style:italic;}
+
+  /* ---------- sentence builder ---------- */
+  .sb-card{
+    background:var(--washi-card); border:1px solid var(--paper-edge); border-radius:var(--radius);
+    padding:32px 30px; box-shadow:var(--shadow-card); position:relative;
+  }
+  .sb-target{font-size:1.4rem; font-weight:500; margin-bottom:22px; color:var(--ink);}
+  .sb-answer{
+    min-height:64px; border:1px dashed var(--gold-soft); border-radius:5px; background:var(--washi);
+    display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:12px 14px; margin-bottom:20px;
+  }
+  .sb-answer:empty::before{content:'tap tiles below in order \u2193'; font-family:var(--serif-en); font-style:italic; color:var(--ink-faint); font-size:.85rem;}
+  .sb-bank{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px;}
+  .sb-tile{
+    font-family:var(--serif-jp); font-size:1.15rem; padding:10px 16px; border-radius:5px;
+    border:1px solid var(--paper-edge); background:var(--washi-card); cursor:pointer; color:var(--ink);
+    transition:.15s ease; box-shadow:0 4px 10px -6px rgba(38,34,27,.35);
+  }
+  .sb-tile:hover{border-color:var(--shu); transform:translateY(-1px);}
+  .sb-tile.placed{opacity:.3; cursor:default; transform:none;}
+  .sb-tile.placed:hover{border-color:var(--paper-edge); transform:none;}
+  .sb-answer .sb-tile{background:var(--washi-deep);}
+  .sb-controls{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; align-items:center;}
+  .sb-feedback{margin-top:16px; font-size:.9rem; min-height:1.3em;}
+  .sb-feedback.correct{color:var(--green);}
+  .sb-feedback.wrong{color:var(--shu-deep);}
+  .sb-feedback .reading{display:block; color:var(--ink-soft); font-family:var(--serif-en); font-style:italic; margin-top:4px;}
+
+  /* ---------- hanko stamp ---------- */
+  .hanko-layer{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:5;}
+  .hanko{
+    width:110px; height:110px; border-radius:8px; border:3px solid var(--shu);
+    display:flex; align-items:center; justify-content:center; color:var(--shu);
+    font-family:var(--serif-jp); font-size:1.7rem; background:rgba(189,59,44,.05);
+    box-shadow:0 0 0 2px rgba(189,59,44,.08) inset;
+    opacity:0;
+  }
+  .hanko.stamp-in{animation:stampIn .5s cubic-bezier(.25,1.6,.4,1) forwards;}
+  @keyframes stampIn{
+    0%{opacity:0; transform:scale(2.4) rotate(-18deg);}
+    55%{opacity:1; transform:scale(.92) rotate(-7deg);}
+    75%{transform:scale(1.05) rotate(-9deg);}
+    100%{opacity:1; transform:scale(1) rotate(-8deg);}
+  }
+
+  /* ---------- grammar ---------- */
+  .grammar-grid{display:flex; flex-direction:column; gap:18px;}
+  .g-card{
+    background:var(--washi-card); border:1px solid var(--paper-edge); border-radius:var(--radius);
+    padding:24px 26px; box-shadow:var(--shadow-soft); display:grid; grid-template-columns:76px 1fr; gap:20px;
+  }
+  .g-marker{
+    width:76px; height:76px; border-radius:50%; border:2px solid var(--shu); color:var(--shu);
+    font-family:var(--serif-jp); font-size:1.5rem; display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; background:var(--shu-wash);
+  }
+  .g-title{font-size:1.15rem; margin-bottom:6px;}
+  .g-explain{color:var(--ink-soft); line-height:1.6; font-size:.94rem; margin-bottom:14px;}
+  .g-example{
+    background:var(--washi-deep); border-left:3px solid var(--gold); padding:14px 18px; border-radius:2px;
+  }
+  .g-example .jp-line{font-family:var(--serif-jp); font-size:1.3rem;}
+  .g-example .reading{color:var(--ink-soft); font-size:.85rem; margin-top:2px;}
+  .g-example .translation{font-family:var(--serif-en); font-style:italic; color:var(--indigo); margin-top:6px;}
+  .breakdown{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+  .breakdown span{
+    font-size:.75rem; background:var(--washi); border:1px solid var(--paper-edge); border-radius:3px;
+    padding:4px 8px; color:var(--ink-soft);
+  }
+  .breakdown span b{color:var(--ink); font-family:var(--serif-jp); font-weight:600;}
+
+  /* ---------- quiz ---------- */
+  .quiz-start{
+    text-align:center; background:var(--washi-card); border:1px solid var(--paper-edge);
+    border-radius:var(--radius); padding:50px 30px; box-shadow:var(--shadow-soft);
+  }
+  .quiz-start h3{font-size:1.4rem; margin-bottom:10px;}
+  .quiz-start p{color:var(--ink-soft); max-width:46ch; margin:0 auto 22px; line-height:1.6;}
+  .count-chips{display:flex; gap:10px; justify-content:center; margin-bottom:26px;}
+
+  .quiz-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-size:.85rem; color:var(--ink-soft);}
+  .quiz-card{
+    background:var(--washi-card); border:1px solid var(--paper-edge); border-radius:var(--radius);
+    padding:34px 30px; box-shadow:var(--shadow-card); position:relative; min-height:340px;
+  }
+  .q-prompt-label{font-family:var(--serif-en); font-style:italic; color:var(--ink-faint); font-size:.8rem; margin-bottom:8px;}
+  .q-prompt{font-family:var(--serif-jp); font-size:1.9rem; margin-bottom:28px; line-height:1.3;}
+  .options{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .opt-btn{
+    text-align:left; padding:14px 16px; border:1px solid var(--paper-edge); border-radius:4px;
+    background:var(--washi); cursor:pointer; font-size:.95rem; color:var(--ink); transition:.15s ease;
+  }
+  .opt-btn:hover{border-color:var(--ink);}
+  .opt-btn.correct{background:var(--green-wash); border-color:var(--green); color:var(--green);}
+  .opt-btn.wrong{background:var(--shu-wash); border-color:var(--shu); color:var(--shu-deep);}
+  .opt-btn:disabled{cursor:default;}
+  .q-next{display:flex; justify-content:flex-end; margin-top:24px;}
+
+  .result-wrap{text-align:center; padding:20px 10px;}
+  .score-seal{
+    width:150px; height:150px; border-radius:50%; border:3px solid var(--shu); margin:0 auto 20px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--shu);
+    background:var(--shu-wash);
+  }
+  .score-seal .num{font-family:var(--serif-jp); font-size:2.4rem; line-height:1;}
+  .score-seal .of{font-family:var(--serif-en); font-style:italic; font-size:.85rem; margin-top:2px;}
+  .result-msg{font-family:var(--serif-jp); font-size:1.3rem; margin-bottom:8px;}
+  .result-sub{color:var(--ink-soft); margin-bottom:26px;}
+  .missed-list{text-align:left; max-width:420px; margin:0 auto 26px; background:var(--washi-deep); border-radius:4px; padding:16px 20px;}
+  .missed-list h4{font-family:var(--serif-en); font-style:italic; font-size:.85rem; color:var(--ink-soft); margin:0 0 10px; font-weight:500;}
+  .missed-list li{display:flex; justify-content:space-between; font-size:.9rem; padding:4px 0; border-bottom:1px dashed var(--paper-edge);}
+  .missed-list .jp{font-family:var(--serif-jp);}
+
+  /* ---------- progress ---------- */
+  .stat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:30px;}
+  .stat-card{
+    background:var(--washi-card); border:1px solid var(--paper-edge); border-radius:var(--radius);
+    padding:22px 22px; box-shadow:var(--shadow-soft); text-align:center;
+  }
+  .stat-card .num{font-family:var(--serif-jp); font-size:2.1rem; color:var(--shu);}
+  .stat-card .label{font-family:var(--serif-en); font-style:italic; color:var(--ink-soft); font-size:.85rem; margin-top:4px;}
+
+  .cat-progress{display:flex; flex-direction:column; gap:14px; margin-bottom:34px;}
+  .cat-row{display:grid; grid-template-columns:150px 1fr 50px; align-items:center; gap:14px;}
+  .cat-row .name{font-size:.9rem; color:var(--ink-soft);}
+  .cat-row .name .jp{font-family:var(--serif-jp); color:var(--ink); margin-right:6px;}
+  .cat-row .bar{height:8px; background:var(--paper-edge); border-radius:4px; overflow:hidden;}
+  .cat-row .bar-fill{height:100%; background:linear-gradient(90deg,var(--gold),var(--shu));}
+  .cat-row .pct{font-size:.82rem; color:var(--ink-soft); text-align:right;}
+
+  .history-list{display:flex; flex-direction:column; gap:8px;}
+  .history-item{
+    display:flex; align-items:center; justify-content:space-between; background:var(--washi-card);
+    border:1px solid var(--paper-edge); border-radius:4px; padding:10px 16px; font-size:.85rem;
+  }
+  .history-item .bar-mini{flex:1; height:6px; background:var(--paper-edge); border-radius:3px; margin:0 16px; overflow:hidden;}
+  .history-item .bar-mini-fill{height:100%; background:var(--indigo);}
+  .reset-row{text-align:center; margin-top:34px;}
+  .link-btn{background:none; border:none; color:var(--ink-faint); text-decoration:underline; cursor:pointer; font-size:.8rem;}
+
+  footer{text-align:center; color:var(--ink-faint); font-family:var(--serif-en); font-style:italic; font-size:.8rem; padding:40px 0 10px; position:relative; z-index:1;}
+
+  @media (max-width:640px){
+    .top-inner{flex-direction:column; align-items:flex-start;}
+    nav.tabs{width:100%; justify-content:space-between;}
+    .g-card{grid-template-columns:1fr; text-align:left;}
+    .g-marker{margin-bottom:4px;}
+    .options{grid-template-columns:1fr;}
+    .face .big-jp{font-size:2.2rem;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  }
+
+  /* ---------- intro animation ---------- */
+  .intro-overlay{
+    position:fixed; inset:0; z-index:200;
+    background:var(--washi);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+    transition:opacity .65s ease;
+  }
+  .intro-overlay::before{
+    content:'';
+    position:absolute; inset:0; pointer-events:none; opacity:.5; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .intro-overlay::after{
+    content:'';
+    position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse 700px 480px at 10% 0%, var(--shu-wash), transparent 60%),
+      radial-gradient(ellipse 640px 520px at 100% 100%, var(--indigo-soft), transparent 65%);
+  }
+  .intro-overlay.hide{opacity:0; pointer-events:none;}
+  .intro-word{
+    position:relative; font-family:var(--serif-jp); font-weight:700;
+    font-size:clamp(2.4rem, 8vw, 5rem); color:var(--shu); display:flex; letter-spacing:.01em;
+  }
+  .intro-letter{
+    display:inline-block; will-change:transform, opacity;
+    transition:transform 1s cubic-bezier(.16,.8,.24,1), opacity .7s ease;
+  }
+  .intro-seal{
+    position:relative; width:64px; height:64px; border:2px solid var(--shu); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; font-family:var(--serif-jp); color:var(--shu);
+    font-size:1.5rem; opacity:0; transform:scale(.5) rotate(-12deg);
+    transition:opacity .6s ease, transform .6s cubic-bezier(.25,1.6,.4,1);
+  }
+  .intro-seal.show{opacity:1; transform:scale(1) rotate(-8deg);}
+  .intro-tag{
+    font-family:var(--serif-en); font-style:italic; color:var(--ink-soft); font-size:1rem;
+    opacity:0; transform:translateY(8px); transition:opacity .6s ease, transform .6s ease;
+    position:relative;
+  }
+  .intro-tag.show{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="intro-overlay" id="introOverlay">
+  <div class="intro-seal" id="introSeal">和</div>
+  <div class="intro-word" id="introWord"></div>
+  <div class="intro-tag" id="introTag">japanese, made simple</div>
+</div>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="brand-mark">和</div>
+      <div class="brand-text">
+        <h1>ことのは</h1>
+        <span class="eyebrow">Kotonoha — leaves of words</span>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="vocab"><span class="jp">単語</span><span class="en">vocabulary</span></button>
+      <button class="tab-btn" data-tab="grammar"><span class="jp">文法</span><span class="en">grammar</span></button>
+      <button class="tab-btn" data-tab="builder"><span class="jp">文作り</span><span class="en">sentence builder</span></button>
+      <button class="tab-btn" data-tab="quiz"><span class="jp">練習</span><span class="en">practice</span></button>
+      <button class="tab-btn" data-tab="progress"><span class="jp">記録</span><span class="en">progress</span></button>
+    </nav>
+    <div class="seal-mini">
+      <span class="flame">&#9670;</span><span class="streak-num" id="streakMini">0</span><span>day streak</span>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+<main>
+
+  <!-- VOCAB -->
+  <section class="view active" id="view-vocab">
+    <div class="section-head">
+      <h2>単語 &nbsp;Vocabulary</h2>
+      <p>Flip each card to reveal the meaning. Mark words you know — they'll be tracked in your progress record.</p>
+    </div>
+
+    <div class="chips" id="catChips"></div>
+
+    <div class="deck-meta">
+      <span id="deckPosition">1 / 8</span>
+      <span id="deckCatLabel">All words</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="deckProgressFill" style="width:12%"></div></div>
+
+    <div class="card-stage">
+      <div class="flashcard" id="flashcard">
+        <div class="face front">
+          <span class="cat-tag" id="frontCat">greetings</span>
+          <button class="speak-btn" id="speakFront" title="Listen">&#128266;</button>
+          <div class="big-jp" id="frontJp">こんにちは</div>
+          <div class="romaji" id="frontRomaji">konnichiwa</div>
+          <div class="front-meaning" id="frontMeaning">hello / good afternoon</div>
+          <span class="hint">tap card to flip</span>
+        </div>
+        <div class="face back">
+          <button class="speak-btn" id="speakBack" title="Listen">&#128266;</button>
+          <div class="big-en" id="backEn">hello / good afternoon</div>
+          <div class="romaji" id="backRomaji">konnichiwa</div>
+          <span class="hint">tap card to flip back</span>
+        </div>
+        <div class="hanko-layer" id="cardHankoLayer"></div>
+      </div>
+    </div>
+
+    <div class="card-controls">
+      <button class="icon-btn" id="prevCard" title="Previous">&#8592;</button>
+      <button class="icon-btn" id="flipCard" title="Flip">&#8635;</button>
+      <button class="icon-btn" id="nextCard" title="Next">&#8594;</button>
+    </div>
+
+    <div class="verdict-row">
+      <button class="btn ghost" id="stillLearning">Still learning</button>
+      <button class="btn primary" id="knowIt">I know this</button>
+    </div>
+  </section>
+
+  <!-- GRAMMAR -->
+  <section class="view" id="view-grammar">
+    <div class="section-head">
+      <h2>文法 &nbsp;Grammar</h2>
+      <p>The building blocks of a Japanese sentence — particles and word order, explained with real examples.</p>
+    </div>
+    <div class="grammar-grid" id="grammarGrid"></div>
+  </section>
+
+  <!-- SENTENCE BUILDER -->
+  <section class="view" id="view-builder">
+    <div class="section-head">
+      <h2>文作り &nbsp;Sentence Builder</h2>
+      <p>Tap the tiles in the right order to build the Japanese sentence, then listen to how it sounds.</p>
+    </div>
+
+    <div class="sb-card">
+      <div class="q-prompt-label">build this sentence</div>
+      <div class="sb-target" id="sbTarget">I eat rice.</div>
+
+      <div class="sb-answer" id="sbAnswer"></div>
+
+      <div class="sb-bank" id="sbBank"></div>
+
+      <div class="sb-feedback" id="sbFeedback"></div>
+
+      <div class="sb-controls">
+        <button class="btn ghost small" id="sbClear">Clear</button>
+        <button class="btn primary" id="sbCheck">Check answer</button>
+        <button class="btn small" id="sbSpeak" style="display:none;">&#128266; Listen</button>
+        <button class="btn small" id="sbNext" style="display:none;">Next sentence &nbsp;&#8594;</button>
+      </div>
+      <div class="hanko-layer" id="sbHankoLayer"></div>
+    </div>
+    <div class="deck-meta" style="margin-top:14px;">
+      <span id="sbProgress">Sentence 1 of 12</span>
+      <span>score: <span id="sbScore">0</span></span>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="view" id="view-quiz">
+    <div class="section-head">
+      <h2>練習 &nbsp;Practice</h2>
+      <p>Test what you've learned with a short quiz mixing vocabulary and grammar.</p>
+    </div>
+
+    <div id="quizStart" class="quiz-start">
+      <h3>How many questions?</h3>
+      <p>Questions are drawn at random from vocabulary and grammar particles, with four choices each.</p>
+      <div class="count-chips">
+        <button class="chip" data-count="5">5 questions</button>
+        <button class="chip active" data-count="10">10 questions</button>
+        <button class="chip" data-count="15">15 questions</button>
+      </div>
+      <button class="btn primary" id="startQuizBtn">Begin practice</button>
+    </div>
+
+    <div id="quizRunning" style="display:none;">
+      <div class="quiz-head">
+        <span id="qProgress">Question 1 of 10</span>
+        <span id="qScoreLive">Score: 0</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="quizProgressFill" style="width:10%"></div></div>
+      <div class="quiz-card">
+        <div class="q-prompt-label" id="qLabel">what does this mean?</div>
+        <div class="q-prompt" id="qPrompt">こんにちは</div>
+        <div class="options" id="qOptions"></div>
+        <div class="hanko-layer" id="quizHankoLayer"></div>
+      </div>
+      <div class="q-next">
+        <button class="btn" id="nextQBtn" style="display:none;">Next question &nbsp;&#8594;</button>
+      </div>
+    </div>
+
+    <div id="quizResult" style="display:none;" class="result-wrap">
+      <div class="score-seal"><span class="num" id="finalScore">8</span><span class="of">out of 10</span></div>
+      <div class="result-msg" id="resultMsg">見事です &nbsp;— &nbsp;Well done</div>
+      <div class="result-sub" id="resultSub">You have a strong grasp of these basics.</div>
+      <div class="missed-list" id="missedList" style="display:none;">
+        <h4>Words to review</h4>
+        <ul id="missedItems"></ul>
+      </div>
+      <button class="btn primary" id="retryQuizBtn">Practice again</button>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="view" id="view-progress">
+    <div class="section-head">
+      <h2>記録 &nbsp;Progress</h2>
+      <p>Your study record — streak, mastery, and recent quiz results.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num" id="statStreak">0</div><div class="label">day streak</div></div>
+      <div class="stat-card"><div class="num" id="statKnown">0</div><div class="label">words known</div></div>
+      <div class="stat-card"><div class="num" id="statMastery">0%</div><div class="label">overall mastery</div></div>
+      <div class="stat-card"><div class="num" id="statAvg">—</div><div class="label">average quiz score</div></div>
+    </div>
+
+    <div class="divider">単語の習熟度</div>
+    <div class="cat-progress" id="catProgressList"></div>
+
+    <div class="divider">練習の記録</div>
+    <div class="history-list" id="historyList"></div>
+    <div class="empty-note" id="historyEmpty" style="display:none;">No practice sessions yet — take a quiz to see your record here.</div>
+
+    <div class="reset-row"><button class="link-btn" id="resetBtn">Reset all progress</button></div>
+  </section>
+
+</main>
+</div>
+
+<footer>手習いは一歩から &nbsp;·&nbsp; every mastery begins with a single step</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ================= DATA ================= */
+  const categories = [
+    {id:"greetings", jp:"挨拶", en:"Greetings"},
+    {id:"phrases", jp:"表現", en:"Useful phrases"},
+    {id:"numbers", jp:"数字", en:"Numbers"},
+    {id:"family", jp:"家族", en:"Family"},
+    {id:"food", jp:"食べ物", en:"Food"},
+    {id:"time", jp:"時", en:"Time"},
+    {id:"days", jp:"曜日", en:"Days & calendar"},
+    {id:"verbs", jp:"動詞", en:"Verbs"},
+    {id:"adjectives", jp:"形容詞", en:"Adjectives"},
+    {id:"colors", jp:"色", en:"Colors"},
+    {id:"weather", jp:"天気", en:"Weather"},
+    {id:"places", jp:"場所", en:"Places & directions"},
+  ];
+
+  const vocabData = [
+    {cat:"greetings", jp:"こんにちは", romaji:"konnichiwa", en:"hello / good afternoon"},
+    {cat:"greetings", jp:"おはようございます", romaji:"ohayou gozaimasu", en:"good morning (polite)"},
+    {cat:"greetings", jp:"こんばんは", romaji:"konbanwa", en:"good evening"},
+    {cat:"greetings", jp:"おやすみなさい", romaji:"oyasuminasai", en:"good night"},
+    {cat:"greetings", jp:"ありがとうございます", romaji:"arigatou gozaimasu", en:"thank you (polite)"},
+    {cat:"greetings", jp:"どういたしまして", romaji:"dou itashimashite", en:"you're welcome"},
+    {cat:"greetings", jp:"すみません", romaji:"sumimasen", en:"excuse me / sorry"},
+    {cat:"greetings", jp:"さようなら", romaji:"sayounara", en:"goodbye"},
+    {cat:"greetings", jp:"はじめまして", romaji:"hajimemashite", en:"nice to meet you"},
+    {cat:"greetings", jp:"お元気ですか", romaji:"ogenki desu ka", en:"how are you?"},
+
+    {cat:"phrases", jp:"お願いします", romaji:"onegaishimasu", en:"please"},
+    {cat:"phrases", jp:"いくらですか", romaji:"ikura desu ka", en:"how much is it?"},
+    {cat:"phrases", jp:"好きです", romaji:"suki desu", en:"I like it"},
+    {cat:"phrases", jp:"わかりません", romaji:"wakarimasen", en:"I don't understand"},
+    {cat:"phrases", jp:"もう一度お願いします", romaji:"mou ichido onegaishimasu", en:"one more time, please"},
+    {cat:"phrases", jp:"大丈夫です", romaji:"daijoubu desu", en:"it's okay / I'm fine"},
+    {cat:"phrases", jp:"どこですか", romaji:"doko desu ka", en:"where is it?"},
+    {cat:"phrases", jp:"何ですか", romaji:"nan desu ka", en:"what is it?"},
+    {cat:"phrases", jp:"元気です", romaji:"genki desu", en:"I'm doing well"},
+    {cat:"phrases", jp:"わかりました", romaji:"wakarimashita", en:"understood / got it"},
+
+    {cat:"numbers", jp:"一", romaji:"ichi", en:"one"},
+    {cat:"numbers", jp:"二", romaji:"ni", en:"two"},
+    {cat:"numbers", jp:"三", romaji:"san", en:"three"},
+    {cat:"numbers", jp:"四", romaji:"yon / shi", en:"four"},
+    {cat:"numbers", jp:"五", romaji:"go", en:"five"},
+    {cat:"numbers", jp:"六", romaji:"roku", en:"six"},
+    {cat:"numbers", jp:"七", romaji:"nana / shichi", en:"seven"},
+    {cat:"numbers", jp:"八", romaji:"hachi", en:"eight"},
+    {cat:"numbers", jp:"九", romaji:"kyuu", en:"nine"},
+    {cat:"numbers", jp:"十", romaji:"juu", en:"ten"},
+    {cat:"numbers", jp:"百", romaji:"hyaku", en:"hundred"},
+    {cat:"numbers", jp:"千", romaji:"sen", en:"thousand"},
+    {cat:"numbers", jp:"万", romaji:"man", en:"ten thousand"},
+    {cat:"numbers", jp:"ゼロ", romaji:"zero", en:"zero"},
+
+    {cat:"family", jp:"家族", romaji:"kazoku", en:"family"},
+    {cat:"family", jp:"両親", romaji:"ryoushin", en:"parents"},
+    {cat:"family", jp:"母", romaji:"haha", en:"mother (own)"},
+    {cat:"family", jp:"父", romaji:"chichi", en:"father (own)"},
+    {cat:"family", jp:"兄", romaji:"ani", en:"older brother"},
+    {cat:"family", jp:"姉", romaji:"ane", en:"older sister"},
+    {cat:"family", jp:"弟", romaji:"otouto", en:"younger brother"},
+    {cat:"family", jp:"妹", romaji:"imouto", en:"younger sister"},
+    {cat:"family", jp:"祖父", romaji:"sofu", en:"grandfather (own)"},
+    {cat:"family", jp:"祖母", romaji:"sobo", en:"grandmother (own)"},
+    {cat:"family", jp:"子供", romaji:"kodomo", en:"child"},
+
+    {cat:"food", jp:"食べ物", romaji:"tabemono", en:"food"},
+    {cat:"food", jp:"ご飯", romaji:"gohan", en:"rice / meal"},
+    {cat:"food", jp:"朝ご飯", romaji:"asagohan", en:"breakfast"},
+    {cat:"food", jp:"昼ご飯", romaji:"hirugohan", en:"lunch"},
+    {cat:"food", jp:"晩ご飯", romaji:"bangohan", en:"dinner"},
+    {cat:"food", jp:"水", romaji:"mizu", en:"water"},
+    {cat:"food", jp:"お茶", romaji:"ocha", en:"tea"},
+    {cat:"food", jp:"コーヒー", romaji:"koohii", en:"coffee"},
+    {cat:"food", jp:"パン", romaji:"pan", en:"bread"},
+    {cat:"food", jp:"卵", romaji:"tamago", en:"egg"},
+    {cat:"food", jp:"魚", romaji:"sakana", en:"fish"},
+    {cat:"food", jp:"肉", romaji:"niku", en:"meat"},
+    {cat:"food", jp:"野菜", romaji:"yasai", en:"vegetable"},
+    {cat:"food", jp:"果物", romaji:"kudamono", en:"fruit"},
+
+    {cat:"time", jp:"今日", romaji:"kyou", en:"today"},
+    {cat:"time", jp:"明日", romaji:"ashita", en:"tomorrow"},
+    {cat:"time", jp:"昨日", romaji:"kinou", en:"yesterday"},
+    {cat:"time", jp:"今", romaji:"ima", en:"now"},
+    {cat:"time", jp:"朝", romaji:"asa", en:"morning"},
+    {cat:"time", jp:"昼", romaji:"hiru", en:"noon / daytime"},
+    {cat:"time", jp:"夜", romaji:"yoru", en:"night"},
+    {cat:"time", jp:"時間", romaji:"jikan", en:"time"},
+    {cat:"time", jp:"毎日", romaji:"mainichi", en:"every day"},
+    {cat:"time", jp:"週末", romaji:"shuumatsu", en:"weekend"},
+    {cat:"time", jp:"先週", romaji:"senshuu", en:"last week"},
+    {cat:"time", jp:"来週", romaji:"raishuu", en:"next week"},
+
+    {cat:"days", jp:"月曜日", romaji:"getsuyoubi", en:"Monday"},
+    {cat:"days", jp:"火曜日", romaji:"kayoubi", en:"Tuesday"},
+    {cat:"days", jp:"水曜日", romaji:"suiyoubi", en:"Wednesday"},
+    {cat:"days", jp:"木曜日", romaji:"mokuyoubi", en:"Thursday"},
+    {cat:"days", jp:"金曜日", romaji:"kinyoubi", en:"Friday"},
+    {cat:"days", jp:"土曜日", romaji:"doyoubi", en:"Saturday"},
+    {cat:"days", jp:"日曜日", romaji:"nichiyoubi", en:"Sunday"},
+    {cat:"days", jp:"何曜日", romaji:"nan youbi", en:"what day (of the week)"},
+    {cat:"days", jp:"週", romaji:"shuu", en:"week"},
+    {cat:"days", jp:"月", romaji:"tsuki", en:"month / moon"},
+    {cat:"days", jp:"年", romaji:"toshi", en:"year"},
+
+    {cat:"verbs", jp:"食べる", romaji:"taberu", en:"to eat"},
+    {cat:"verbs", jp:"飲む", romaji:"nomu", en:"to drink"},
+    {cat:"verbs", jp:"見る", romaji:"miru", en:"to see / watch"},
+    {cat:"verbs", jp:"行く", romaji:"iku", en:"to go"},
+    {cat:"verbs", jp:"来る", romaji:"kuru", en:"to come"},
+    {cat:"verbs", jp:"帰る", romaji:"kaeru", en:"to return / go home"},
+    {cat:"verbs", jp:"する", romaji:"suru", en:"to do"},
+    {cat:"verbs", jp:"話す", romaji:"hanasu", en:"to speak"},
+    {cat:"verbs", jp:"読む", romaji:"yomu", en:"to read"},
+    {cat:"verbs", jp:"書く", romaji:"kaku", en:"to write"},
+    {cat:"verbs", jp:"買う", romaji:"kau", en:"to buy"},
+    {cat:"verbs", jp:"作る", romaji:"tsukuru", en:"to make"},
+    {cat:"verbs", jp:"待つ", romaji:"matsu", en:"to wait"},
+    {cat:"verbs", jp:"会う", romaji:"au", en:"to meet"},
+    {cat:"verbs", jp:"寝る", romaji:"neru", en:"to sleep"},
+    {cat:"verbs", jp:"起きる", romaji:"okiru", en:"to wake up"},
+    {cat:"verbs", jp:"働く", romaji:"hataraku", en:"to work"},
+    {cat:"verbs", jp:"勉強する", romaji:"benkyou suru", en:"to study"},
+    {cat:"verbs", jp:"分かる", romaji:"wakaru", en:"to understand"},
+
+    {cat:"adjectives", jp:"大きい", romaji:"ookii", en:"big"},
+    {cat:"adjectives", jp:"小さい", romaji:"chiisai", en:"small"},
+    {cat:"adjectives", jp:"新しい", romaji:"atarashii", en:"new"},
+    {cat:"adjectives", jp:"古い", romaji:"furui", en:"old (things)"},
+    {cat:"adjectives", jp:"高い", romaji:"takai", en:"expensive / tall"},
+    {cat:"adjectives", jp:"安い", romaji:"yasui", en:"cheap"},
+    {cat:"adjectives", jp:"いい", romaji:"ii", en:"good"},
+    {cat:"adjectives", jp:"悪い", romaji:"warui", en:"bad"},
+    {cat:"adjectives", jp:"楽しい", romaji:"tanoshii", en:"fun"},
+    {cat:"adjectives", jp:"難しい", romaji:"muzukashii", en:"difficult"},
+    {cat:"adjectives", jp:"簡単", romaji:"kantan", en:"easy / simple"},
+    {cat:"adjectives", jp:"忙しい", romaji:"isogashii", en:"busy"},
+    {cat:"adjectives", jp:"暑い", romaji:"atsui", en:"hot (weather)"},
+    {cat:"adjectives", jp:"寒い", romaji:"samui", en:"cold (weather)"},
+    {cat:"adjectives", jp:"おいしい", romaji:"oishii", en:"delicious"},
+
+    {cat:"colors", jp:"色", romaji:"iro", en:"color"},
+    {cat:"colors", jp:"赤", romaji:"aka", en:"red"},
+    {cat:"colors", jp:"青", romaji:"ao", en:"blue"},
+    {cat:"colors", jp:"黄色", romaji:"kiiro", en:"yellow"},
+    {cat:"colors", jp:"緑", romaji:"midori", en:"green"},
+    {cat:"colors", jp:"黒", romaji:"kuro", en:"black"},
+    {cat:"colors", jp:"白", romaji:"shiro", en:"white"},
+    {cat:"colors", jp:"茶色", romaji:"chairo", en:"brown"},
+
+    {cat:"weather", jp:"天気", romaji:"tenki", en:"weather"},
+    {cat:"weather", jp:"雨", romaji:"ame", en:"rain"},
+    {cat:"weather", jp:"晴れ", romaji:"hare", en:"sunny"},
+    {cat:"weather", jp:"曇り", romaji:"kumori", en:"cloudy"},
+    {cat:"weather", jp:"雪", romaji:"yuki", en:"snow"},
+    {cat:"weather", jp:"風", romaji:"kaze", en:"wind"},
+
+    {cat:"places", jp:"学校", romaji:"gakkou", en:"school"},
+    {cat:"places", jp:"大学", romaji:"daigaku", en:"university"},
+    {cat:"places", jp:"会社", romaji:"kaisha", en:"company / office"},
+    {cat:"places", jp:"駅", romaji:"eki", en:"station"},
+    {cat:"places", jp:"家", romaji:"ie", en:"house / home"},
+    {cat:"places", jp:"病院", romaji:"byouin", en:"hospital"},
+    {cat:"places", jp:"お店", romaji:"omise", en:"shop"},
+    {cat:"places", jp:"公園", romaji:"kouen", en:"park"},
+    {cat:"places", jp:"トイレ", romaji:"toire", en:"toilet / restroom"},
+    {cat:"places", jp:"電車", romaji:"densha", en:"train"},
+    {cat:"places", jp:"バス", romaji:"basu", en:"bus"},
+    {cat:"places", jp:"車", romaji:"kuruma", en:"car"},
+    {cat:"places", jp:"右", romaji:"migi", en:"right"},
+    {cat:"places", jp:"左", romaji:"hidari", en:"left"},
+    {cat:"places", jp:"前", romaji:"mae", en:"front / before"},
+    {cat:"places", jp:"後ろ", romaji:"ushiro", en:"behind"},
+    {cat:"places", jp:"中", romaji:"naka", en:"inside"},
+    {cat:"places", jp:"近く", romaji:"chikaku", en:"nearby"},
+  ];
+
+  const grammarData = [
+    {title:"Basic sentence order", marker:"S–O–V",
+     explanation:"Japanese places the verb at the end of the sentence. Where English says \u201cI eat rice,\u201d Japanese effectively says \u201cI rice eat.\u201d Particles attached to each word show its role, so order is flexible as long as the verb stays last.",
+     example:"私はご飯を食べます。", reading:"watashi wa gohan o tabemasu", translation:"I eat rice.",
+     breakdown:[["私","I"],["は","topic"],["ご飯","rice"],["を","object"],["食べます","eat (polite)"]]},
+    {title:"は — the topic marker", marker:"は\nwa",
+     explanation:"は marks what the sentence is about — the topic. It is written with the hiragana for \u201cha\u201d but pronounced \u201cwa\u201d when used this way.",
+     example:"これは本です。", reading:"kore wa hon desu", translation:"This is a book.",
+     breakdown:[["これ","this"],["は","topic"],["本","book"],["です","is"]]},
+    {title:"を — the object marker", marker:"を\no",
+     explanation:"を marks the direct object of a verb — the thing being acted upon.",
+     example:"水を飲みます。", reading:"mizu o nomimasu", translation:"I drink water.",
+     breakdown:[["水","water"],["を","object"],["飲みます","drink"]]},
+    {title:"が — the subject marker", marker:"が\nga",
+     explanation:"が marks the grammatical subject, often introducing new information or answering a \u201cwho / what\u201d question.",
+     example:"猫がいます。", reading:"neko ga imasu", translation:"There is a cat.",
+     breakdown:[["猫","cat"],["が","subject"],["います","exists"]]},
+    {title:"に — time and direction", marker:"に\nni",
+     explanation:"に marks a specific point in time, or the destination of a movement.",
+     example:"七時に行きます。", reading:"shichiji ni ikimasu", translation:"I will go at seven o'clock.",
+     breakdown:[["七時","seven o'clock"],["に","time"],["行きます","go"]]},
+    {title:"で — where an action happens", marker:"で\nde",
+     explanation:"で marks the location where an action takes place — different from に, which marks a destination or point in time.",
+     example:"公園で食べます。", reading:"kouen de tabemasu", translation:"I eat at the park.",
+     breakdown:[["公園","park"],["で","location"],["食べます","eat"]]},
+    {title:"です・ます — the polite form", marker:"です\nます",
+     explanation:"です follows nouns and adjectives, and ます follows verb stems — both used to speak politely, the safe default register for most everyday situations.",
+     example:"学生です。", reading:"gakusei desu", translation:"I am a student.",
+     breakdown:[["学生","student"],["です","polite \u2018to be\u2019"]]},
+  ];
+
+  const grammarQuizPool = [
+    {q:"Which particle marks the topic of a sentence?", correct:"は (wa)", options:["は (wa)","を (o)","が (ga)","に (ni)"]},
+    {q:"Which particle marks the direct object of a verb?", correct:"を (o)", options:["を (o)","で (de)","は (wa)","が (ga)"]},
+    {q:"Which particle marks where an action takes place?", correct:"で (de)", options:["で (de)","に (ni)","を (o)","は (wa)"]},
+    {q:"What is the basic word order in a Japanese sentence?", correct:"Subject – Object – Verb", options:["Subject – Object – Verb","Subject – Verb – Object","Verb – Subject – Object","Object – Subject – Verb"]},
+    {q:"Which ending makes a verb polite, as in 食べます?", correct:"ます (masu)", options:["ます (masu)","です (desu)","ない (nai)","たい (tai)"]},
+    {q:"Which particle often introduces new information as the subject?", correct:"が (ga)", options:["が (ga)","は (wa)","を (o)","で (de)"]},
+  ];
+
+  const sentenceData = [
+    {en:"I eat rice.", tokens:["私","は","ご飯","を","食べます"], reading:"watashi wa gohan o tabemasu"},
+    {en:"This is a book.", tokens:["これ","は","本","です"], reading:"kore wa hon desu"},
+    {en:"I drink water.", tokens:["水","を","飲みます"], reading:"mizu o nomimasu"},
+    {en:"There is a cat.", tokens:["猫","が","います"], reading:"neko ga imasu"},
+    {en:"I will go at seven o'clock.", tokens:["七時","に","行きます"], reading:"shichiji ni ikimasu"},
+    {en:"I eat at the park.", tokens:["公園","で","食べます"], reading:"kouen de tabemasu"},
+    {en:"I am a student.", tokens:["学生","です"], reading:"gakusei desu"},
+    {en:"Today is Monday.", tokens:["今日","は","月曜日","です"], reading:"kyou wa getsuyoubi desu"},
+    {en:"It is cold today.", tokens:["今日","は","寒い","です"], reading:"kyou wa samui desu"},
+    {en:"This is difficult.", tokens:["これ","は","難しい","です"], reading:"kore wa muzukashii desu"},
+    {en:"I like coffee.", tokens:["コーヒー","が","好きです"], reading:"koohii ga suki desu"},
+    {en:"I go to school.", tokens:["学校","に","行きます"], reading:"gakkou ni ikimasu"},
+    {en:"I buy bread.", tokens:["パン","を","買います"], reading:"pan o kaimasu"},
+    {en:"Where is the toilet?", tokens:["トイレ","は","どこですか"], reading:"toire wa doko desu ka"},
+    {en:"I wake up in the morning.", tokens:["朝","に","起きます"], reading:"asa ni okimasu"},
+  ];
+
+  /* ================= STATE / STORAGE ================= */
+  const LS = {
+    known:"kotonoha_known_v1",
+    history:"kotonoha_history_v1",
+    streak:"kotonoha_streak_v1",
+  };
+
+  function loadKnown(){ try{ return new Set(JSON.parse(localStorage.getItem(LS.known))||[]); }catch(e){ return new Set(); } }
+  function saveKnown(set){ localStorage.setItem(LS.known, JSON.stringify(Array.from(set))); }
+  function loadHistory(){ try{ return JSON.parse(localStorage.getItem(LS.history))||[]; }catch(e){ return []; } }
+  function saveHistory(arr){ localStorage.setItem(LS.history, JSON.stringify(arr)); }
+
+  function todayStr(){ return new Date().toISOString().slice(0,10); }
+  function dayDiff(a,b){ return Math.round((new Date(b)-new Date(a))/86400000); }
+
+  function touchStreak(){
+    let s; try{ s = JSON.parse(localStorage.getItem(LS.streak)); }catch(e){ s = null; }
+    const today = todayStr();
+    if(!s){ s = {last: today, count: 1}; }
+    else if(s.last === today){ /* no change */ }
+    else {
+      const diff = dayDiff(s.last, today);
+      s.count = (diff === 1) ? s.count + 1 : 1;
+      s.last = today;
+    }
+    localStorage.setItem(LS.streak, JSON.stringify(s));
+    return s.count;
+  }
+
+  let knownSet = loadKnown();
+  const streakCount = touchStreak();
+
+  /* ================= INTRO ANIMATION ================= */
+  function runIntro(){
+    const overlay = document.getElementById("introOverlay");
+    const wordEl = document.getElementById("introWord");
+    const seal = document.getElementById("introSeal");
+    const tag = document.getElementById("introTag");
+    const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const text = "NihonGo!";
+
+    if(reduced){
+      wordEl.textContent = text;
+      seal.classList.add("show");
+      tag.classList.add("show");
+      setTimeout(()=>{
+        overlay.classList.add("hide");
+        setTimeout(()=>{ overlay.style.display = "none"; }, 400);
+      }, 900);
+      return;
+    }
+
+    const chars = text.split("");
+    chars.forEach((ch, i)=>{
+      const span = document.createElement("span");
+      span.className = "intro-letter";
+      span.textContent = ch;
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 260 + Math.random() * 560;
+      const sx = Math.cos(angle) * dist;
+      const sy = Math.sin(angle) * dist;
+      const rot = Math.random() * 320 - 160;
+      span.style.transform = `translate(${sx}px, ${sy}px) rotate(${rot}deg) scale(.35)`;
+      span.style.opacity = "0";
+      span.style.transitionDelay = (i * 55) + "ms";
+      wordEl.appendChild(span);
+    });
+
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        wordEl.querySelectorAll(".intro-letter").forEach(span=>{
+          span.style.transform = "translate(0,0) rotate(0deg) scale(1)";
+          span.style.opacity = "1";
+        });
+      });
+    });
+
+    const settleTime = 900 + chars.length * 55;
+    setTimeout(()=> seal.classList.add("show"), settleTime);
+    setTimeout(()=> tag.classList.add("show"), settleTime + 150);
+    setTimeout(()=>{
+      overlay.classList.add("hide");
+      setTimeout(()=>{ overlay.style.display = "none"; }, 650);
+    }, settleTime + 1150);
+  }
+  runIntro();
+
+  /* ================= TAB NAV ================= */
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const views = { vocab: document.getElementById("view-vocab"), grammar: document.getElementById("view-grammar"),
+                   builder: document.getElementById("view-builder"),
+                   quiz: document.getElementById("view-quiz"), progress: document.getElementById("view-progress") };
+
+  tabButtons.forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      tabButtons.forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      Object.values(views).forEach(v=>v.classList.remove("active"));
+      views[btn.dataset.tab].classList.add("active");
+      if(btn.dataset.tab === "progress") renderProgress();
+    });
+  });
+
+  /* ================= SPEECH ================= */
+  function speak(text){
+    if(!("speechSynthesis" in window)) return;
+    try{
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "ja-JP"; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  /* ================= VOCAB / FLASHCARDS ================= */
+  let activeCat = "all";
+  let deck = vocabData.slice();
+  let cardIndex = 0;
+  let flipped = false;
+
+  const catChips = document.getElementById("catChips");
+  function buildChips(){
+    const all = document.createElement("button");
+    all.className = "chip active"; all.dataset.cat = "all";
+    all.innerHTML = `<span class="jp">全部</span>All`;
+    catChips.appendChild(all);
+    categories.forEach(c=>{
+      const chip = document.createElement("button");
+      chip.className = "chip"; chip.dataset.cat = c.id;
+      chip.innerHTML = `<span class="jp">${c.jp}</span>${c.en}`;
+      catChips.appendChild(chip);
+    });
+    catChips.addEventListener("click", (e)=>{
+      const chip = e.target.closest(".chip");
+      if(!chip) return;
+      catChips.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+      chip.classList.add("active");
+      activeCat = chip.dataset.cat;
+      deck = activeCat === "all" ? vocabData.slice() : vocabData.filter(v=>v.cat===activeCat);
+      cardIndex = 0; flipped = false;
+      renderCard();
+    });
+  }
+  buildChips();
+
+  const flashcardEl = document.getElementById("flashcard");
+  const frontCat = document.getElementById("frontCat");
+  const frontJp = document.getElementById("frontJp");
+  const frontRomaji = document.getElementById("frontRomaji");
+  const frontMeaning = document.getElementById("frontMeaning");
+  const backEn = document.getElementById("backEn");
+  const backRomaji = document.getElementById("backRomaji");
+  const deckPosition = document.getElementById("deckPosition");
+  const deckCatLabel = document.getElementById("deckCatLabel");
+  const deckProgressFill = document.getElementById("deckProgressFill");
+
+  function catLabel(id){
+    if(id==="all") return "All words";
+    const c = categories.find(x=>x.id===id);
+    return c ? `${c.jp} ${c.en}` : id;
+  }
+
+  function renderCard(){
+    if(deck.length === 0){
+      flashcardEl.style.visibility = "hidden";
+      deckPosition.textContent = "0 / 0";
+      return;
+    }
+    flashcardEl.style.visibility = "visible";
+    if(cardIndex >= deck.length) cardIndex = 0;
+    if(cardIndex < 0) cardIndex = deck.length - 1;
+    const item = deck[cardIndex];
+    frontCat.textContent = catLabel(item.cat);
+    frontJp.textContent = item.jp;
+    frontRomaji.textContent = item.romaji;
+    frontMeaning.textContent = item.en;
+    backEn.textContent = item.en;
+    backRomaji.textContent = item.romaji;
+    flipped = false;
+    flashcardEl.classList.remove("flipped");
+    deckPosition.textContent = `${cardIndex+1} / ${deck.length}`;
+    deckCatLabel.textContent = catLabel(activeCat);
+    deckProgressFill.style.width = `${((cardIndex+1)/deck.length)*100}%`;
+  }
+
+  flashcardEl.addEventListener("click", ()=>{
+    flipped = !flipped;
+    flashcardEl.classList.toggle("flipped", flipped);
+  });
+  document.getElementById("flipCard").addEventListener("click",(e)=>{ e.stopPropagation(); flashcardEl.click(); });
+  document.getElementById("prevCard").addEventListener("click",(e)=>{ e.stopPropagation(); cardIndex--; renderCard(); });
+  document.getElementById("nextCard").addEventListener("click",(e)=>{ e.stopPropagation(); cardIndex++; renderCard(); });
+  document.getElementById("speakFront").addEventListener("click",(e)=>{ e.stopPropagation(); speak(deck[cardIndex].jp); });
+  document.getElementById("speakBack").addEventListener("click",(e)=>{ e.stopPropagation(); speak(deck[cardIndex].jp); });
+
+  function stampCard(kanji){
+    const layer = document.getElementById("cardHankoLayer");
+    layer.innerHTML = `<div class="hanko stamp-in">${kanji}</div>`;
+    setTimeout(()=>{ layer.innerHTML = ""; cardIndex++; renderCard(); }, 650);
+  }
+
+  document.getElementById("knowIt").addEventListener("click", ()=>{
+    if(deck.length===0) return;
+    knownSet.add(deck[cardIndex].jp);
+    saveKnown(knownSet);
+    stampCard("合格");
+  });
+  document.getElementById("stillLearning").addEventListener("click", ()=>{
+    if(deck.length===0) return;
+    knownSet.delete(deck[cardIndex].jp);
+    saveKnown(knownSet);
+    cardIndex++; renderCard();
+  });
+
+  renderCard();
+
+  /* ================= GRAMMAR ================= */
+  const grammarGrid = document.getElementById("grammarGrid");
+  grammarData.forEach(g=>{
+    const card = document.createElement("div");
+    card.className = "g-card";
+    const [line1, line2] = g.marker.split("\n");
+    card.innerHTML = `
+      <div class="g-marker">${line1}${line2 ? '<br><span style="font-size:.6rem;font-family:var(--serif-en);font-style:italic;">'+line2+'</span>':''}</div>
+      <div>
+        <div class="g-title">${g.title}</div>
+        <div class="g-explain">${g.explanation}</div>
+        <div class="g-example">
+          <div class="jp-line">${g.example}</div>
+          <div class="reading">${g.reading}</div>
+          <div class="translation">${g.translation}</div>
+        </div>
+        <div class="breakdown">${g.breakdown.map(b=>`<span><b>${b[0]}</b> ${b[1]}</span>`).join("")}</div>
+      </div>
+    `;
+    grammarGrid.appendChild(card);
+  });
+
+  /* ================= SENTENCE BUILDER ================= */
+  const sbTarget = document.getElementById("sbTarget");
+  const sbAnswer = document.getElementById("sbAnswer");
+  const sbBank = document.getElementById("sbBank");
+  const sbFeedback = document.getElementById("sbFeedback");
+  const sbCheck = document.getElementById("sbCheck");
+  const sbClear = document.getElementById("sbClear");
+  const sbSpeakBtn = document.getElementById("sbSpeak");
+  const sbNext = document.getElementById("sbNext");
+  const sbProgress = document.getElementById("sbProgress");
+  const sbScoreEl = document.getElementById("sbScore");
+
+  let sbOrder = shuffle(sentenceData.map((_,i)=>i));
+  let sbPos = 0;
+  let sbCurrent = null;
+  let sbPlaced = [];
+  let sbScore = 0;
+  let sbSolved = false;
+
+  function sbLoad(){
+    sbCurrent = sentenceData[sbOrder[sbPos]];
+    sbPlaced = [];
+    sbSolved = false;
+    sbTarget.textContent = sbCurrent.en;
+    sbProgress.textContent = `Sentence ${sbPos+1} of ${sentenceData.length}`;
+    sbFeedback.textContent = "";
+    sbFeedback.className = "sb-feedback";
+    sbSpeakBtn.style.display = "none";
+    sbNext.style.display = "none";
+    sbCheck.disabled = false;
+
+    // build a tile bank: correct tokens plus 1-2 distractor tokens from other sentences
+    const extraPool = sentenceData
+      .filter(s => s !== sbCurrent)
+      .flatMap(s => s.tokens)
+      .filter(t => !sbCurrent.tokens.includes(t));
+    const distractors = shuffle(extraPool).slice(0, Math.min(2, extraPool.length));
+    const bankTokens = shuffle([...sbCurrent.tokens, ...distractors]);
+
+    sbBank.innerHTML = "";
+    bankTokens.forEach(tok=>{
+      const tile = document.createElement("button");
+      tile.className = "sb-tile";
+      tile.textContent = tok;
+      tile.addEventListener("click", ()=> sbPlaceTile(tile, tok));
+      sbBank.appendChild(tile);
+    });
+    sbRenderAnswer();
+  }
+
+  function sbRenderAnswer(){
+    sbAnswer.innerHTML = "";
+    sbPlaced.forEach(({tok, tile})=>{
+      const chip = document.createElement("button");
+      chip.className = "sb-tile";
+      chip.textContent = tok;
+      chip.addEventListener("click", ()=> sbRemoveTile(tok, tile, chip));
+      sbAnswer.appendChild(chip);
+    });
+  }
+
+  function sbPlaceTile(tile, tok){
+    if(sbSolved || tile.classList.contains("placed")) return;
+    tile.classList.add("placed");
+    sbPlaced.push({tok, tile});
+    sbRenderAnswer();
+  }
+
+  function sbRemoveTile(tok, tile, chip){
+    if(sbSolved) return;
+    const idx = sbPlaced.findIndex(p => p.tile === tile);
+    if(idx > -1) sbPlaced.splice(idx,1);
+    tile.classList.remove("placed");
+    sbRenderAnswer();
+  }
+
+  sbClear.addEventListener("click", ()=>{
+    if(sbSolved) return;
+    sbPlaced.forEach(p => p.tile.classList.remove("placed"));
+    sbPlaced = [];
+    sbRenderAnswer();
+  });
+
+  sbCheck.addEventListener("click", ()=>{
+    const attempt = sbPlaced.map(p=>p.tok);
+    const correct = attempt.length === sbCurrent.tokens.length &&
+      attempt.every((t,i)=> t === sbCurrent.tokens[i]);
+    sbSolved = true;
+    sbCheck.disabled = true;
+    sbSpeakBtn.style.display = "inline-flex";
+    sbNext.style.display = "inline-flex";
+    if(correct){
+      sbScore++;
+      sbScoreEl.textContent = sbScore;
+      sbFeedback.className = "sb-feedback correct";
+      sbFeedback.innerHTML = `Correct! &nbsp;${sbCurrent.tokens.join("")}<span class="reading">${sbCurrent.reading}</span>`;
+      const layer = document.getElementById("sbHankoLayer");
+      layer.innerHTML = `<div class="hanko stamp-in">正解</div>`;
+      setTimeout(()=>{ layer.innerHTML = ""; }, 700);
+    } else {
+      sbFeedback.className = "sb-feedback wrong";
+      sbFeedback.innerHTML = `Not quite. Correct order: &nbsp;${sbCurrent.tokens.join("")}<span class="reading">${sbCurrent.reading}</span>`;
+    }
+  });
+
+  sbSpeakBtn.addEventListener("click", ()=> speak(sbCurrent.tokens.join("")));
+
+  sbNext.addEventListener("click", ()=>{
+    sbPos++;
+    if(sbPos >= sbOrder.length){ sbOrder = shuffle(sentenceData.map((_,i)=>i)); sbPos = 0; }
+    sbLoad();
+  });
+
+  sbLoad();
+
+  /* ================= QUIZ ================= */
+  const quizStart = document.getElementById("quizStart");
+  const quizRunning = document.getElementById("quizRunning");
+  const quizResult = document.getElementById("quizResult");
+  let quizCount = 10;
+
+  document.querySelectorAll(".count-chips .chip").forEach(chip=>{
+    chip.addEventListener("click", ()=>{
+      document.querySelectorAll(".count-chips .chip").forEach(c=>c.classList.remove("active"));
+      chip.classList.add("active");
+      quizCount = parseInt(chip.dataset.count,10);
+    });
+  });
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+    return a;
+  }
+
+  function buildVocabQuestion(item){
+    const distractors = shuffle(vocabData.filter(v=>v.en!==item.en)).slice(0,3).map(v=>v.en);
+    const options = shuffle([item.en, ...distractors]);
+    return {label:"what does this mean?", prompt:item.jp, correct:item.en, options, sourceJp:item.jp};
+  }
+
+  function buildGrammarQuestion(g){
+    return {label:"grammar", prompt:g.q, correct:g.correct, options:shuffle(g.options), sourceJp:null};
+  }
+
+  let quizQuestions = [];
+  let quizIndex = 0;
+  let quizScore = 0;
+  let quizMissed = [];
+
+  function startQuiz(){
+    const vocabPool = shuffle(vocabData).slice(0, Math.ceil(quizCount*0.7)).map(buildVocabQuestion);
+    const grammarPool = shuffle(grammarQuizPool).slice(0, Math.floor(quizCount*0.3)).map(buildGrammarQuestion);
+    quizQuestions = shuffle([...vocabPool, ...grammarPool]).slice(0, quizCount);
+    quizIndex = 0; quizScore = 0; quizMissed = [];
+    quizStart.style.display = "none";
+    quizResult.style.display = "none";
+    quizRunning.style.display = "block";
+    renderQuestion();
+  }
+
+  const qProgress = document.getElementById("qProgress");
+  const qScoreLive = document.getElementById("qScoreLive");
+  const quizProgressFill = document.getElementById("quizProgressFill");
+  const qLabel = document.getElementById("qLabel");
+  const qPrompt = document.getElementById("qPrompt");
+  const qOptions = document.getElementById("qOptions");
+  const nextQBtn = document.getElementById("nextQBtn");
+
+  function renderQuestion(){
+    const q = quizQuestions[quizIndex];
+    qProgress.textContent = `Question ${quizIndex+1} of ${quizQuestions.length}`;
+    qScoreLive.textContent = `Score: ${quizScore}`;
+    quizProgressFill.style.width = `${((quizIndex)/quizQuestions.length)*100}%`;
+    qLabel.textContent = q.label;
+    qPrompt.textContent = q.prompt;
+    qOptions.innerHTML = "";
+    nextQBtn.style.display = "none";
+    q.options.forEach(opt=>{
+      const b = document.createElement("button");
+      b.className = "opt-btn";
+      b.textContent = opt;
+      b.addEventListener("click", ()=>handleAnswer(b, opt, q));
+      qOptions.appendChild(b);
+    });
+  }
+
+  function handleAnswer(btn, chosen, q){
+    const buttons = qOptions.querySelectorAll(".opt-btn");
+    buttons.forEach(b=>b.disabled = true);
+    const correct = chosen === q.correct;
+    if(correct){
+      btn.classList.add("correct");
+      quizScore++;
+      const layer = document.getElementById("quizHankoLayer");
+      layer.innerHTML = `<div class="hanko stamp-in">正解</div>`;
+      setTimeout(()=>{ layer.innerHTML = ""; }, 700);
+    } else {
+      btn.classList.add("wrong");
+      buttons.forEach(b=>{ if(b.textContent === q.correct) b.classList.add("correct"); });
+      quizMissed.push(q);
+    }
+    qScoreLive.textContent = `Score: ${quizScore}`;
+    nextQBtn.style.display = "inline-flex";
+  }
+
+  nextQBtn.addEventListener("click", ()=>{
+    quizIndex++;
+    if(quizIndex >= quizQuestions.length){ finishQuiz(); }
+    else { renderQuestion(); }
+  });
+
+  function finishQuiz(){
+    quizRunning.style.display = "none";
+    quizResult.style.display = "block";
+    document.getElementById("finalScore").textContent = quizScore;
+    document.querySelector(".score-seal .of").textContent = `out of ${quizQuestions.length}`;
+    const pct = quizScore / quizQuestions.length;
+    const msgEl = document.getElementById("resultMsg");
+    const subEl = document.getElementById("resultSub");
+    if(pct >= 0.9){ msgEl.textContent = "見事です — Excellent"; subEl.textContent = "You have a strong grasp of these basics."; }
+    else if(pct >= 0.7){ msgEl.textContent = "よくできました — Well done"; subEl.textContent = "Solid progress — a little more review and this will stick."; }
+    else if(pct >= 0.4){ msgEl.textContent = "がんばって — Keep going"; subEl.textContent = "You're building the foundation. Review the missed words below."; }
+    else { msgEl.textContent = "練習あるのみ — Practice makes progress"; subEl.textContent = "Revisit the flashcards, then try again."; }
+
+    const missedList = document.getElementById("missedList");
+    const missedItems = document.getElementById("missedItems");
+    missedItems.innerHTML = "";
+    if(quizMissed.length){
+      missedList.style.display = "block";
+      quizMissed.forEach(q=>{
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="jp">${q.sourceJp || q.prompt}</span><span>${q.correct}</span>`;
+        missedItems.appendChild(li);
+      });
+    } else {
+      missedList.style.display = "none";
+    }
+
+    const history = loadHistory();
+    history.push({date: todayStr(), score: quizScore, total: quizQuestions.length});
+    saveHistory(history.slice(-20));
+  }
+
+  document.getElementById("startQuizBtn").addEventListener("click", startQuiz);
+  document.getElementById("retryQuizBtn").addEventListener("click", ()=>{
+    quizResult.style.display = "none";
+    quizStart.style.display = "block";
+  });
+
+  /* ================= PROGRESS ================= */
+  function renderProgress(){
+    document.getElementById("streakMini").textContent = streakCount;
+    document.getElementById("statStreak").textContent = streakCount;
+    document.getElementById("statKnown").textContent = knownSet.size;
+    const masteryPct = Math.round((knownSet.size / vocabData.length) * 100);
+    document.getElementById("statMastery").textContent = masteryPct + "%";
+
+    const history = loadHistory();
+    if(history.length){
+      const avg = Math.round(history.reduce((s,h)=>s + (h.score/h.total), 0) / history.length * 100);
+      document.getElementById("statAvg").textContent = avg + "%";
+    } else {
+      document.getElementById("statAvg").textContent = "—";
+    }
+
+    const catList = document.getElementById("catProgressList");
+    catList.innerHTML = "";
+    categories.forEach(c=>{
+      const items = vocabData.filter(v=>v.cat===c.id);
+      const known = items.filter(v=>knownSet.has(v.jp)).length;
+      const pct = items.length ? Math.round((known/items.length)*100) : 0;
+      const row = document.createElement("div");
+      row.className = "cat-row";
+      row.innerHTML = `
+        <div class="name"><span class="jp">${c.jp}</span>${c.en}</div>
+        <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
+        <div class="pct">${known}/${items.length}</div>
+      `;
+      catList.appendChild(row);
+    });
+
+    const historyList = document.getElementById("historyList");
+    const historyEmpty = document.getElementById("historyEmpty");
+    historyList.innerHTML = "";
+    if(!history.length){
+      historyEmpty.style.display = "block";
+    } else {
+      historyEmpty.style.display = "none";
+      history.slice().reverse().slice(0,10).forEach(h=>{
+        const pct = Math.round((h.score/h.total)*100);
+        const item = document.createElement("div");
+        item.className = "history-item";
+        item.innerHTML = `
+          <span>${h.date}</span>
+          <div class="bar-mini"><div class="bar-mini-fill" style="width:${pct}%"></div></div>
+          <span>${h.score}/${h.total}</span>
+        `;
+        historyList.appendChild(item);
+      });
+    }
+  }
+
+  document.getElementById("resetBtn").addEventListener("click", ()=>{
+    if(!confirm("Reset all saved progress? This cannot be undone.")) return;
+    localStorage.removeItem(LS.known);
+    localStorage.removeItem(LS.history);
+    localStorage.removeItem(LS.streak);
+    knownSet = new Set();
+    renderProgress();
+  });
+
+  renderProgress();
+})();
+</script>
+</body>
+</html>
