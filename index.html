@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Charan Aduri | AI & Data Science Specialist</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Inter:wght@400;500&family=Geist:wght@400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e3e0f3",
+                        "surface-container-low": "#1a1a27",
+                        "surface-container-high": "#292936",
+                        "on-error": "#690005",
+                        "on-primary": "#520070",
+                        "secondary-fixed-dim": "#00dce6",
+                        "inverse-on-surface": "#2f2f3d",
+                        "surface-bright": "#383846",
+                        "tertiary-fixed-dim": "#d3beeb",
+                        "on-surface-variant": "#d1c2d2",
+                        "on-secondary-fixed": "#002022",
+                        "tertiary-fixed": "#eddcff",
+                        "on-primary-fixed-variant": "#6e208c",
+                        "surface-container": "#1f1e2b",
+                        "outline-variant": "#4e4350",
+                        "background": "#12121f",
+                        "on-tertiary-fixed-variant": "#4f4065",
+                        "primary-fixed": "#f9d8ff",
+                        "on-tertiary-fixed": "#231437",
+                        "primary": "#edb1ff",
+                        "inverse-primary": "#883ca6",
+                        "on-secondary-fixed-variant": "#004f53",
+                        "secondary-container": "#00f1fd",
+                        "error-container": "#93000a",
+                        "outline": "#9a8c9b",
+                        "on-tertiary-container": "#fcf3ff",
+                        "on-secondary-container": "#006a6f",
+                        "tertiary-container": "#7b6991",
+                        "surface-variant": "#343341",
+                        "on-tertiary": "#38294d",
+                        "secondary": "#dcfdff",
+                        "inverse-surface": "#e3e0f3",
+                        "secondary-fixed": "#6ff6ff",
+                        "on-surface": "#e3e0f3",
+                        "surface-container-highest": "#343341",
+                        "surface-container-lowest": "#0d0d19",
+                        "primary-container": "#9d50bb",
+                        "tertiary": "#d3beeb",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#12121f",
+                        "primary-fixed-dim": "#edb1ff",
+                        "surface-tint": "#edb1ff",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#00373a",
+                        "on-primary-fixed": "#320046",
+                        "surface-dim": "#12121f",
+                        "on-primary-container": "#fff3fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Lexend"],
+                        "label-md": ["Geist"],
+                        "headline-md": ["Lexend"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Lexend"],
+                        "headline-lg-mobile": ["Lexend"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #050510;
+            background-image: 
+                radial-gradient(circle at 50% -20%, #4a1d6e 0%, transparent 50%),
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+            color: #e3e0f3;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(237, 177, 255, 0.3);
+        }
+        .neon-glow-cyan {
+            box-shadow: 0 0 20px rgba(0, 220, 230, 0.3);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #edb1ff 0%, #00dce6 100%);
+        }
+
+        /* Intro Animation Styles */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: #12121f;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+        }
+        
+        .intro-text-container {
+            perspective: 1000px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .intro-text {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: 4rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #edb1ff 0%, #00dce6 50%, #9d50bb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(237, 177, 255, 0.5));
+            opacity: 0;
+            transform: scale(0.5) translateZ(-500px);
+            animation: neural-expansion 4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        @keyframes neural-expansion {
+            0% {
+                opacity: 0;
+                transform: scale(0.2) translateZ(-1000px);
+                filter: blur(20px) drop-shadow(0 0 0px rgba(237, 177, 255, 0));
+            }
+            40% {
+                opacity: 1;
+                filter: blur(0px) drop-shadow(0 0 25px rgba(237, 177, 255, 0.8));
+            }
+            80% {
+                opacity: 1;
+                transform: scale(1.1) translateZ(100px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5) translateZ(500px);
+                filter: blur(10px);
+            }
+        }
+
+        .deep-space-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 2px 2px, rgba(237, 177, 255, 0.15) 1px, transparent 0);
+            background-size: 40px 40px;
+            animation: move-space 20s linear infinite;
+        }
+
+        @keyframes move-space {
+            from { transform: translateY(0); }
+            to { transform: translateY(-1000px); }
+        }
+
+        @media (max-width: 768px) {
+            .intro-text {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Chatbot Styles */
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 420px;
+            height: 650px;
+            background: rgba(18, 18, 31, 0.95);
+            backdrop-filter: blur(24px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(237, 177, 255, 0.2);
+            display: none;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(100px) scale(0.8);
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .chatbot-window.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #1f1e2b, #292936);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 20px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 16px;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-chat:hover {
+            transform: rotate(90deg);
+            color: #edb1ff;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            display: flex;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .user .message-content {
+            background: linear-gradient(135deg, #edb1ff 0%, #00dce6 100%);
+            color: #050510;
+            font-weight: 500;
+            border-bottom-right-radius: 4px;
+        }
+
+        .assistant .message-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e3e0f3;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chatbot-input-area {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            background: rgba(18, 18, 31, 0.95);
+            border-radius: 0 0 16px 16px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chatbot-input-area input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input-area input:focus {
+            outline: none;
+            border-color: #00dce6;
+            box-shadow: 0 0 10px rgba(0, 220, 230, 0.2);
+        }
+
+        .chatbot-input-area button {
+            background: linear-gradient(135deg, #edb1ff, #00dce6);
+            color: #050510;
+            border: none;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chatbot-input-area button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 220, 230, 0.4);
+        }
+
+        .typing { display: flex; gap: 4px; padding: 4px; }
+        .typing-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #edb1ff;
+            animation: typing 1.4s infinite;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        .chatbot-messages::-webkit-scrollbar { width: 6px; }
+        .chatbot-messages::-webkit-scrollbar-track { background: transparent; }
+        .chatbot-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
+        @media (max-width: 768px) {
+            .chatbot-window {
+                width: calc(100% - 40px);
+                height: 75vh;
+                bottom: 90px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+    <!-- Cinematic Intro Overlay -->
+    <div id="intro-overlay">
+        <div class="deep-space-particles"></div>
+        <div class="intro-text-container">
+            <h1 class="intro-text">Welcome to<br/>Charan's Portfolio</h1>
+        </div>
+    </div>
+
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto bg-surface/30 dark:bg-surface/30 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(237,177,255,0.15)] max-md:px-margin-mobile">
+        <div class="text-headline-sm font-headline-sm font-bold tracking-tighter text-on-surface dark:text-on-surface">
+            CHARAN.AI
+        </div>
+        <div class="hidden md:flex gap-8 items-center">
+            <a class="nav-link font-label-md text-label-md text-primary border-b-2 border-primary shadow-[0_4px_12px_-2px_rgba(237,177,255,0.5)] transition-colors duration-300" href="#home">Home</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors duration-300 border-b-2 border-transparent" href="#about">About</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors duration-300 border-b-2 border-transparent" href="#skills">Skills</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors duration-300 border-b-2 border-transparent" href="#projects">Projects</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors duration-300 border-b-2 border-transparent" href="#education">Education</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors duration-300 border-b-2 border-transparent" href="#certifications">Certifications</a>
+            <a class="nav-link font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors duration-300 border-b-2 border-transparent" href="#contact">Contact</a>
+        </div>
+        <div class="flex gap-4 items-center">
+            <a href="https://github.com/charanaduri22" target="_blank" class="text-on-surface-variant hover:text-primary transition-colors text-xl"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/charan-aduri-295855402/" target="_blank" class="text-on-surface-variant hover:text-primary transition-colors text-xl"><i class="fab fa-linkedin"></i></a>
+            <a href="#contact" class="primary-gradient text-on-primary px-6 py-2 rounded-full font-label-md text-label-md neon-glow hover:scale-105 transition-transform max-md:hidden">
+                Hire Me
+            </a>
+        </div>
+    </nav>
+
+    <main class="relative pt-32">
+        <!-- Hero Section -->
+        <section class="px-margin-mobile md:px-margin-desktop mb-stack-lg flex flex-col items-center text-center" id="home">
+            <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full glass-card border-primary/20 mb-stack-md">
+                <span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+                <span class="font-label-md text-label-md text-secondary-fixed-dim uppercase tracking-widest">Available for Innovation</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl mb-4 max-w-4xl mx-auto leading-tight max-md:text-4xl">
+                Building Intelligent Solutions Using <br/>
+                <span class="text-transparent bg-clip-text primary-gradient">AI & Data Science</span>
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
+                Hi, I'm Charan Aduri, an AI & Data Science Specialist and B.Tech student at SIR CR REDDY COLLEGE OF ENGINEERING, passionate about machine learning, deep learning, and creating solutions that matter.
+            </p>
+            <div class="flex flex-col md:flex-row gap-6">
+                <a href="#projects" class="primary-gradient text-on-primary px-10 py-4 rounded-xl font-headline-sm text-headline-sm neon-glow-cyan hover:scale-105 transition-transform inline-block">
+                    View My Work
+                </a>
+                <a href="Charan_Resume_pdf.docx" download class="glass-card text-on-surface px-10 py-4 rounded-xl font-headline-sm text-headline-sm flex items-center gap-2 justify-center hover:bg-white/10 transition-colors">
+                    Download Resume <span class="material-symbols-outlined">download</span>
+                </a>
+            </div>
+
+            <!-- Hero Visual Anchor -->
+            <div class="mt-20 w-full max-w-5xl relative">
+                <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
+                <div class="glass-card rounded-2xl overflow-hidden aspect-video shadow-2xl relative z-10">
+                    <img class="w-full h-full object-cover opacity-80 mix-blend-screen" alt="Abstract Data Visualization" src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 text-left max-w-md">
+                        <h3 class="text-2xl font-bold font-headline-md text-primary mb-2">Neural Architecture</h3>
+                        <p class="text-on-surface-variant font-body-md text-sm">Designing robust, scalable ML pipelines for the next generation of applications.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="about">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="absolute -inset-10 bg-secondary-fixed/10 blur-3xl rounded-full"></div>
+                    <div class="glass-card aspect-square rounded-3xl overflow-hidden relative z-10 p-2 border-primary/30 flex items-center justify-center">
+                        <img src="c pic.jpeg" alt="Charan Aduri" class="w-full h-full object-cover rounded-2xl" onerror="this.onerror=null; this.src='../Desktop/c pic.jpeg'; this.alt='Image not found.';">
+                    </div>
+                </div>
+                <div>
+                    <h2 class="font-headline-lg text-headline-lg mb-6">Mastering the <span class="text-transparent bg-clip-text primary-gradient">Data Frontier</span></h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mb-4">
+                        I'm passionate about artificial intelligence and its potential to solve real-world problems. Currently pursuing my B.Tech in AI & Data Science (2025-2029), I focus on hands-on projects and continuous learning.
+                    </p>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mb-8">
+                        Beyond academics, I actively participate in hackathons, contribute to open-source projects, and explore cutting-edge technologies to stay at the forefront of AI innovation.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-2xl border border-primary/20 hover:border-primary/50 transition-colors">
+                            <h3 class="font-headline-md text-headline-md text-primary mb-1 text-2xl">🎯 Focus</h3>
+                            <p class="font-label-md text-label-md text-on-surface-variant uppercase mt-2">ML, DL, NLP, CV, Full-Stack</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-secondary-fixed-dim/20 hover:border-secondary-fixed-dim/50 transition-colors">
+                            <h3 class="font-headline-md text-headline-md text-secondary-fixed-dim mb-1 text-2xl">🏆 Achievements</h3>
+                            <p class="font-label-md text-label-md text-on-surface-variant uppercase mt-2">Gen AI Cert, Hackathons</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="skills">
+            <div class="text-center mb-16">
+                <h2 class="font-headline-lg text-headline-lg mb-4">Core Competencies</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Accelerating development with streamlined processes and neural frameworks.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Machine Learning -->
+                <div class="glass-card p-8 rounded-3xl md:col-span-1 flex flex-col gap-4 border border-white/5 hover:border-primary/40 transition-colors">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-icon="memory">memory</span>
+                    <h3 class="font-headline-sm text-headline-sm">Machine Learning</h3>
+                    <p class="text-on-surface-variant text-sm">Developing predictive models and autonomous systems.</p>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md">Scikit-Learn</span>
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md">Supervised</span>
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md">Unsupervised</span>
+                    </div>
+                </div>
+
+                <!-- Deep Learning (Large Card) -->
+                <div class="glass-card p-8 rounded-3xl md:col-span-2 primary-gradient/5 border border-primary/20 hover:border-primary/50 transition-colors relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 opacity-10">
+                        <span class="material-symbols-outlined text-[200px]" data-icon="neurology">neurology</span>
+                    </div>
+                    <div class="flex justify-between items-start mb-10 relative z-10">
+                        <div>
+                            <h3 class="font-headline-lg text-headline-lg mb-2 text-primary">Deep Learning</h3>
+                            <p class="text-on-surface-variant max-w-md">Architecting neural networks for complex pattern recognition.</p>
+                        </div>
+                        <span class="material-symbols-outlined text-6xl text-primary" data-icon="neurology">neurology</span>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
+                        <div class="glass-card p-4 rounded-xl text-center border border-white/10">
+                            <span class="font-label-md text-label-md text-white">TensorFlow</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl text-center border border-white/10">
+                            <span class="font-label-md text-label-md text-white">PyTorch</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl text-center border border-white/10">
+                            <span class="font-label-md text-label-md text-white">CNNs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Science -->
+                <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-secondary-fixed-dim/40 transition-colors">
+                    <span class="material-symbols-outlined text-4xl text-secondary-fixed-dim" data-icon="database">database</span>
+                    <h3 class="font-headline-sm text-headline-sm mt-4">Data Science</h3>
+                    <p class="text-on-surface-variant mb-6 text-sm">Extracting actionable insights with Pandas and NumPy.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md text-secondary-fixed-dim">Pandas</span>
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md text-secondary-fixed-dim">NumPy</span>
+                    </div>
+                </div>
+
+                <!-- NLP & Vision -->
+                <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-tertiary-fixed-dim/40 transition-colors">
+                    <span class="material-symbols-outlined text-4xl text-tertiary-fixed-dim" data-icon="visibility">visibility</span>
+                    <h3 class="font-headline-sm text-headline-sm mt-4">NLP & Vision</h3>
+                    <p class="text-on-surface-variant mb-6 text-sm">Processing text and imagery with Transformers and OpenCV.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md text-tertiary-fixed-dim">BERT</span>
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md text-tertiary-fixed-dim">OpenCV</span>
+                    </div>
+                </div>
+
+                <!-- Web Development -->
+                <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-primary/40 transition-colors">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-icon="code">code</span>
+                    <h3 class="font-headline-sm text-headline-sm mt-4">Web & Programming</h3>
+                    <p class="text-on-surface-variant mb-6 text-sm">Python, SQL, React, HTML5, CSS3 for full-stack integration.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md text-primary">Python</span>
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] uppercase font-label-md text-primary">React</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-lowest/20 border-y border-white/5" id="projects">
+            <div class="max-w-container-max mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                    <div class="max-w-xl">
+                        <h2 class="font-headline-lg text-headline-lg mb-4">Featured Projects</h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Exploring intelligent solutions and immersive digital experiences.</p>
+                    </div>
+                    <a href="https://github.com/charanaduri22" target="_blank" class="glass-card px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/10 transition-all border border-white/10 hover:border-primary/50 text-white">
+                        Explore Github <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Project 1 -->
+                    <div class="group relative flex flex-col glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(237,177,255,0.2)]">
+                        <div class="h-48 bg-gradient-to-br from-primary/20 to-surface flex items-center justify-center text-5xl">
+                            🌐
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="font-headline-md text-headline-sm mb-2 font-bold text-white">Professional Portfolio</h3>
+                            <p class="text-on-surface-variant mb-4 text-sm flex-grow">Modern, clean portfolio website with smooth animations, female AI voice greeting, Gemini chatbot integration, and responsive design.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-md text-xs font-semibold uppercase">HTML/CSS</span>
+                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-md text-xs font-semibold uppercase">JS</span>
+                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-md text-xs font-semibold uppercase">Gemini API</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mt-auto">
+                                <a href="portfolio.html" target="_blank" class="text-center py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-sm font-semibold text-white">View</a>
+                                <a href="portfolio.html" download class="text-center py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-sm font-semibold text-white">Code</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="group relative flex flex-col glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-secondary-fixed-dim/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(0,220,230,0.2)]">
+                        <div class="h-48 bg-gradient-to-br from-secondary-fixed-dim/20 to-surface flex items-center justify-center text-5xl">
+                            📊
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="font-headline-md text-headline-sm mb-2 font-bold text-white">Analytics Dashboard</h3>
+                            <p class="text-on-surface-variant mb-4 text-sm flex-grow">Interactive real-time analytics dashboard with Chart.js visualizations, revenue tracking, market analysis, and operational metrics.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-2 py-1 bg-secondary-fixed-dim/10 text-secondary-fixed-dim rounded-md text-xs font-semibold uppercase">Chart.js</span>
+                                <span class="px-2 py-1 bg-secondary-fixed-dim/10 text-secondary-fixed-dim rounded-md text-xs font-semibold uppercase">HTML/CSS</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mt-auto">
+                                <a href="analytics_report_pdf.html" target="_blank" class="text-center py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-sm font-semibold text-white">View</a>
+                                <a href="analytics_report_pdf.html" download class="text-center py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-sm font-semibold text-white">Download</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="group relative flex flex-col glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-tertiary-fixed-dim/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(211,190,235,0.2)]">
+                        <div class="h-48 bg-gradient-to-br from-tertiary-fixed-dim/20 to-surface flex items-center justify-center text-5xl">
+                            📈
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="font-headline-md text-headline-sm mb-2 font-bold text-white">Data Analysis Platform</h3>
+                            <p class="text-on-surface-variant mb-4 text-sm flex-grow">Comprehensive data analysis platform with interactive visualizations, statistical insights, and predictive analytics capabilities.</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-2 py-1 bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim rounded-md text-xs font-semibold uppercase">Python</span>
+                                <span class="px-2 py-1 bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim rounded-md text-xs font-semibold uppercase">Pandas</span>
+                                <span class="px-2 py-1 bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim rounded-md text-xs font-semibold uppercase">Plotly</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mt-auto">
+                                <a href="preview.html" target="_blank" class="text-center py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-sm font-semibold text-white">View</a>
+                                <a href="preview.html" download class="text-center py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-sm font-semibold text-white">Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 (Movie Recommender) - Full Width -->
+                <div class="mt-8">
+                    <div class="group relative flex flex-col md:flex-row glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,211,238,0.2)]">
+                        <div class="h-48 md:h-auto md:w-1/3 bg-gradient-to-br from-[#22d3ee]/20 to-surface flex items-center justify-center text-5xl">
+                            🎬
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow md:w-2/3">
+                            <h3 class="font-headline-md text-headline-sm mb-2 font-bold text-white">Cinematic AI Recommender</h3>
+                            <p class="text-on-surface-variant mb-4 text-sm flex-grow">A premium, Netflix-style movie and web series recommendation application powered by smart curation and interactive filters. Fully standalone and viewable anywhere!</p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-2 py-1 bg-[#22d3ee]/10 text-[#22d3ee] rounded-md text-xs font-semibold uppercase">HTML5/CSS3</span>
+                                <span class="px-2 py-1 bg-[#22d3ee]/10 text-[#22d3ee] rounded-md text-xs font-semibold uppercase">Vanilla JS</span>
+                                <span class="px-2 py-1 bg-[#22d3ee]/10 text-[#22d3ee] rounded-md text-xs font-semibold uppercase">Standalone</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mt-auto md:w-1/2">
+                                <a href="movie-recommender.html" target="_blank" class="text-center py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-sm font-semibold text-white">Open App <span class="material-symbols-outlined text-[14px] align-middle ml-1">open_in_new</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="education">
+            <h2 class="font-headline-lg text-headline-lg mb-12 text-center">Academic Foundation</h2>
+            <div class="max-w-3xl mx-auto">
+                
+                <!-- Education Timeline -->
+                <div class="w-full">
+                    <h3 class="text-2xl font-bold font-headline-md text-white mb-6 flex items-center gap-2 justify-center"><span class="text-primary">🎓</span> Education</h3>
+                    <div class="relative pl-10 border-l border-primary/30 py-4 ml-4 md:ml-0 md:border-none md:pl-0 md:text-center md:flex md:flex-col md:items-center">
+                        <div class="absolute left-[-10px] top-8 w-5 h-5 rounded-full bg-primary neon-glow md:hidden"></div>
+                        <div class="glass-card p-6 md:p-10 rounded-3xl border border-white/5 hover:border-primary/30 transition-colors w-full">
+                            <div class="flex flex-col md:items-center mb-6">
+                                <span class="px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-md text-label-md w-fit mb-4">2025 - 2029</span>
+                                <h4 class="font-headline-sm text-headline-sm text-white text-2xl mb-2">B.Tech - AI & Data Science</h4>
+                                <p class="font-body-lg text-primary text-lg">SIR CR REDDY COLLEGE OF ENGINEERING</p>
+                            </div>
+                            <p class="text-on-surface-variant text-base md:text-lg leading-relaxed max-w-2xl mx-auto">Comprehensive program covering Machine Learning, Deep Learning, Neural Networks, Data Analytics, and practical AI applications. Strong focus on real-world project implementation and research.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full" id="certifications">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full glass-card border-[#00dce6]/20 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-[#00dce6] animate-pulse"></span>
+                    <span class="text-sm text-[#00dce6] uppercase tracking-widest font-semibold">Verified Credentials</span>
+                </div>
+                <h2 class="font-headline-lg text-headline-lg mb-4 text-center">My Certifications</h2>
+                <p class="text-on-surface-variant text-lg max-w-2xl mx-auto">Professional certifications and verified skills showcasing continuous learning and expertise.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-5xl mx-auto">
+                <!-- Certificate 1: Gen AI -->
+                <div class="flex flex-col gap-6">
+                    <div class="glass-card p-4 rounded-[32px] relative group border border-white/10 hover:border-primary/50 transition-colors shadow-2xl w-full">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-[#00dce6]/20 blur-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity rounded-[40px]"></div>
+                        <div class="rounded-[24px] overflow-hidden bg-black/50 aspect-[1.4] flex items-center justify-center relative">
+                            <img src="gen ai certificate.jpeg" alt="Generative AI Certification" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='../Desktop/gen ai certificate.jpeg'; this.alt='Image not found.';">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white mb-2">Intro to Generative AI & Prompting</h3>
+                        <p class="text-[#00dce6] font-medium mb-3">LetsUpgrade EdTech</p>
+                        <p class="text-sm text-on-surface-variant">In collaboration with NSDC, ITM Edutech, and GDG MAD.</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 2: Canva -->
+                <div class="flex flex-col gap-6">
+                    <div class="glass-card p-4 rounded-[32px] relative group border border-white/10 hover:border-[#00dce6]/50 transition-colors shadow-2xl w-full">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-[#00dce6]/20 to-primary/20 blur-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity rounded-[40px]"></div>
+                        <div class="rounded-[24px] overflow-hidden bg-black/50 aspect-[1.4] flex items-center justify-center relative">
+                            <img src="cer.jpeg" alt="Canva Design Certification" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='../Desktop/cer.jpeg'; this.alt='Image not found.';">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white mb-2">Canva Design Certification</h3>
+                        <p class="text-[#00dce6] font-medium mb-3">Professional Design Credential</p>
+                        <p class="text-sm text-on-surface-variant">Demonstrating proficiency in visual design and digital media creation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="contact">
+            <div class="glass-card p-8 md:p-16 rounded-[48px] relative overflow-hidden border border-white/10">
+                <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent pointer-events-none"></div>
+                <div class="relative z-10 grid md:grid-cols-2 gap-16">
+                    <div>
+                        <h2 class="font-headline-lg text-headline-lg mb-4 leading-tight text-4xl">Ready to build the <br/><span class="text-transparent bg-clip-text primary-gradient">Next Big Thing?</span></h2>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant mb-10">
+                            Have a project in mind or want to collaborate? I'm always open to discussing new ideas or opportunities.
+                        </p>
+                        
+                        <div class="space-y-6">
+                            <a href="mailto:charanaduri@outlook.com" class="flex items-center gap-4 group cursor-pointer w-fit text-decoration-none">
+                                <div class="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-primary group-hover:scale-110 transition-transform group-hover:bg-primary/20">
+                                    <span class="material-symbols-outlined">mail</span>
+                                </div>
+                                <span class="font-body-lg text-white group-hover:text-primary transition-colors">charanaduri@outlook.com</span>
+                            </a>
+                            <div class="flex gap-4 mt-8">
+                                <a href="https://linkedin.com/in/charan-aduri-295855402/" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-xl text-white hover:text-[#0a66c2] hover:bg-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://github.com/charanaduri22" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-xl text-white hover:text-black hover:bg-white transition-all"><i class="fab fa-github"></i></a>
+                                <a href="https://instagram.com/debugmikey" target="_blank" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-xl text-white hover:text-[#E1306C] hover:bg-white transition-all"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="contactForm" class="space-y-5 bg-black/20 p-8 rounded-3xl border border-white/5 backdrop-blur-md relative z-20">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-on-surface-variant mb-2 ml-1">Name</label>
+                                <input id="name" required class="bg-[#0A0A1F]/80 border border-white/10 rounded-xl px-5 py-3 focus:border-secondary-fixed-dim focus:ring-1 focus:ring-secondary-fixed-dim transition-all w-full text-white placeholder:text-white/20 text-sm" placeholder="John Doe" type="text"/>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-on-surface-variant mb-2 ml-1">Email</label>
+                                <input id="email" required class="bg-[#0A0A1F]/80 border border-white/10 rounded-xl px-5 py-3 focus:border-secondary-fixed-dim focus:ring-1 focus:ring-secondary-fixed-dim transition-all w-full text-white placeholder:text-white/20 text-sm" placeholder="john@example.com" type="email"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-on-surface-variant mb-2 ml-1">Subject</label>
+                            <input id="subject" class="bg-[#0A0A1F]/80 border border-white/10 rounded-xl px-5 py-3 focus:border-secondary-fixed-dim focus:ring-1 focus:ring-secondary-fixed-dim transition-all w-full text-white placeholder:text-white/20 text-sm" placeholder="Project Inquiry" type="text"/>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-on-surface-variant mb-2 ml-1">Message</label>
+                            <textarea id="message" required class="bg-[#0A0A1F]/80 border border-white/10 rounded-xl px-5 py-3 focus:border-secondary-fixed-dim focus:ring-1 focus:ring-secondary-fixed-dim transition-all w-full text-white placeholder:text-white/20 text-sm resize-none" placeholder="Hello Charan, I'd like to discuss..." rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="w-full primary-gradient text-on-primary py-4 rounded-xl font-headline-sm text-lg font-bold neon-glow hover:scale-[1.02] transition-transform shadow-lg mt-2">
+                            Send Transmission
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Side Chatbot Identity (FRIDAY AI) -->
+    <div class="fixed bottom-8 right-8 z-50 group">
+        <div class="absolute bottom-full right-0 mb-4 glass-card p-4 rounded-2xl w-64 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all pointer-events-none">
+            <p class="font-label-md text-label-md text-primary mb-1">FRIDAY AI</p>
+            <p class="text-xs text-on-surface-variant">Ask me anything about Charan's skills and projects.</p>
+        </div>
+        <button id="chatbotIcon" class="w-16 h-16 rounded-full primary-gradient flex items-center justify-center neon-glow hover:scale-110 transition-transform cursor-pointer shadow-xl border-2 border-primary/50 relative overflow-hidden">
+            <span class="absolute inset-0 bg-white/20 rounded-full animate-ping opacity-75"></span>
+            <span class="material-symbols-outlined text-3xl text-on-primary relative z-10" data-icon="smart_toy" data-weight="fill">smart_toy</span>
+        </button>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">smart_toy</span>
+                FRIDAY AI Assistant
+            </div>
+            <button class="close-chat" id="closeChat">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message assistant">
+                <div class="message-content">Hi there! 👋 I'm FRIDAY, Charan's AI assistant. Feel free to ask me anything about his skills, projects, or AI in general!</div>
+            </div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off">
+            <button id="chatSend"><span class="material-symbols-outlined text-xl">send</span></button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/10 bg-surface-container-lowest relative overflow-hidden mt-12 max-md:px-margin-mobile text-center md:text-left">
+        <div class="relative z-10">
+            <div class="font-headline-sm text-on-surface mb-1 text-lg font-bold">CHARAN.AI</div>
+            <p class="font-body-md text-sm text-on-surface-variant">© 2024 Charan Aduri. Built with Neural Architecture.</p>
+        </div>
+        <div class="flex gap-6 relative z-10">
+            <a href="https://linkedin.com/in/charan-aduri-295855402/" target="_blank" class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold tracking-wider uppercase">LinkedIn</a>
+            <a href="https://github.com/charanaduri22" target="_blank" class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold tracking-wider uppercase">GitHub</a>
+            <a href="https://instagram.com/debugmikey" target="_blank" class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold tracking-wider uppercase">Instagram</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="chatbot_brain.js"></script>
+    <script>
+        // ============ FRIDAY CHATBOT BRAIN INITIALIZATION ============
+        let friday;
+        async function initFriday() {
+            try {
+                const response = await fetch('knowledge_base.json');
+                if (response.ok) {
+                    const kb = await response.json();
+                    friday = new FRIDAYChatbotBrain(kb);
+                    console.log("FRIDAY Chatbot Brain v2.0 successfully initialized offline.");
+                } else {
+                    throw new Error("HTTP error: " + response.status);
+                }
+            } catch (err) {
+                console.warn("Could not load knowledge_base.json, running with offline fallback context:", err);
+                friday = new FRIDAYChatbotBrain({});
+            }
+        }
+        initFriday();
+        // ============ NAVBAR SCROLL HIGHLIGHTING ============
+        window.addEventListener('scroll', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            let current = '';
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-primary', 'border-primary');
+                link.classList.add('text-on-surface-variant', 'border-transparent');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.remove('text-on-surface-variant', 'border-transparent');
+                    link.classList.add('text-primary', 'border-primary');
+                }
+            });
+
+            // Navbar background opacity on scroll
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-surface/80');
+                nav.classList.remove('bg-surface/30');
+            } else {
+                nav.classList.add('bg-surface/30');
+                nav.classList.remove('bg-surface/80');
+            }
+        });
+
+        // Prevent scrolling during intro
+        document.body.style.overflow = 'hidden';
+
+        // ============ INTRO OVERLAY & FEMALE VOICE GREETING ============
+        window.addEventListener('load', () => {
+            // Give time for intro animation to finish
+            setTimeout(() => {
+                const overlay = document.getElementById('intro-overlay');
+                if (overlay) {
+                    overlay.style.opacity = '0';
+                    overlay.style.visibility = 'hidden';
+                }
+                document.body.style.overflow = 'auto';
+
+                const text = "Welcome to Charan's Portfolio";
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                let voicePlayed = false;
+                const playVoice = () => {
+                    if (voicePlayed) return;
+                    
+                    const voices = window.speechSynthesis.getVoices();
+                    if (voices.length === 0) return; // Wait until voices are actually loaded
+
+                    voicePlayed = true;
+                    
+                    const femaleVoice = voices.find(voice => 
+                        voice.name.includes('Google UK English Female') || 
+                        voice.name.includes('Female') ||
+                        voice.name.includes('Samantha') ||
+                        voice.name.includes('Victoria') ||
+                        voice.name.includes('Zira')
+                    ) || voices.find(v => !v.name.includes('Male')) || voices[0];
+                    
+                    if(femaleVoice) utterance.voice = femaleVoice;
+                    utterance.rate = 1;
+                    utterance.pitch = 1.1;
+                    utterance.volume = 0.8;
+                    
+                    window.speechSynthesis.speak(utterance);
+                };
+
+                if (window.speechSynthesis.getVoices().length > 0) {
+                    playVoice();
+                } else {
+                    window.speechSynthesis.onvoiceschanged = playVoice;
+                }
+            }, 4500);
+        });
+
+        // ============ CHATBOT LOGIC ============
+        const chatbotIcon = document.getElementById('chatbotIcon');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatMessages = document.getElementById('chatMessages');
+
+        chatbotIcon.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('active');
+            if (chatbotWindow.classList.contains('active')) {
+                chatInput.focus();
+            }
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatbotWindow.classList.remove('active');
+        });
+
+        const knowledgeBase = {
+            "who are you": "I'm FRIDAY, Charan's AI assistant. I'm here to help answer questions about Charan, AI, data science, programming, and virtually any topic!",
+            "about charan": "Charan Aduri is a B.Tech AI & Data Science student at SIR CR REDDY COLLEGE OF ENGINEERING (2025-2029). He's passionate about machine learning, deep learning, and creating intelligent solutions.",
+            "charan's skills": "Charan specializes in Machine Learning (Scikit-learn), Deep Learning (TensorFlow, PyTorch, CNNs), Data Science (Pandas, NumPy), NLP, Computer Vision, and Web Development (Python, SQL, JavaScript, HTML5, CSS3, React).",
+            "charan's projects": "Charan has worked on: 1) Professional Portfolio Website, 2) Analytics Dashboard (Chart.js), 3) Data Analysis Platform (Python, Pandas, Plotly). Check out the Projects section!",
+            "charan's certifications": "Charan completed 'Introduction to Generative AI & Prompting' from LetsUpgrade EdTech in May 2026 - covering generative AI, LLMs, and prompting techniques.",
+            "charan's contact": "You can reach Charan at charanaduri@outlook.com, LinkedIn: charan-aduri-295855402, GitHub: charanaduri22, or Instagram: @debugmikey",
+            "resume": "Charan's resume is available for download on the top of the homepage. It contains detailed information about his education, skills, projects, and achievements.",
+            "machine learning": "Machine Learning is a subset of AI where systems learn from data without being explicitly programmed. Charan uses Scikit-Learn for supervised and unsupervised tasks.",
+            "deep learning": "Deep Learning uses neural networks with multiple layers. Charan builds models using TensorFlow, PyTorch, and architectures like CNNs and Transformers.",
+            "data science": "Data Science combines statistics, programming, and domain expertise. Charan uses Python, Pandas, and NumPy to extract insights from datasets.",
+            "hello": "Hi! I'm FRIDAY, your AI assistant. Ask me anything about AI, data science, programming, or Charan's work!",
+            "hi": "Hello! I'm here to help. What would you like to know?",
+            "thanks": "You're welcome! Feel free to ask if you have more questions!",
+            "thank you": "Happy to help! Is there anything else you'd like to know?",
+        };
+
+        async function getResponse(userMessage) {
+            // 1. Try to use the advanced offline FRIDAY brain first
+            if (friday) {
+                try {
+                    const response = await friday.generateResponse(userMessage);
+                    if (response) return response;
+                } catch (err) {
+                    console.error("Advanced FRIDAY brain failed to generate response, falling back:", err);
+                }
+            }
+
+            // 2. Fallback to basic local knowledge base (original keyword matching)
+            const lowerMessage = userMessage.toLowerCase().trim();
+            for (const [key, response] of Object.entries(knowledgeBase)) {
+                if (lowerMessage.includes(key)) {
+                    return response;
+                }
+            }
+
+            // 3. Fallback to Gemini API if available (original Gemini API fetch)
+            try {
+                const GEMINI_API_KEY = 'REDACTED_API_KEY';
+                const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + GEMINI_API_KEY;
+
+                const response = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: `You are FRIDAY, Charan Aduri's friendly, highly technical AI assistant in a cyberpunk themed portfolio. Answer this question concisely: ${userMessage}`
+                            }]
+                        }]
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm processing too much data right now. Try another query!";
+                } else {
+                    throw new Error("API Response not OK");
+                }
+            } catch (error) {
+                console.log("Fallback activated, API failed");
+                return "I'm currently operating offline. I can only answer questions about Charan's profile, skills, and projects based on my pre-loaded databanks.";
+            }
+        }
+
+        function addMessage(text, isUser = false) {
+            const message = document.createElement('div');
+            message.classList.add('message', isUser ? 'user' : 'assistant');
+            message.innerHTML = `<div class="message-content">${text}</div>`;
+            chatMessages.appendChild(message);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const message = document.createElement('div');
+            message.classList.add('message', 'assistant');
+            message.innerHTML = `<div class="message-content"><div class="typing">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div></div>`;
+            message.id = 'typing-indicator';
+            chatMessages.appendChild(message);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        chatSend.addEventListener('click', async () => {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatInput.value = '';
+                showTyping();
+                
+                // Simulate slight network delay for effect
+                setTimeout(async () => {
+                    const response = await getResponse(message);
+                    removeTyping();
+                    addMessage(response, false);
+                }, 800);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') chatSend.click();
+        });
+
+        // ============ CONTACT FORM ============
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const btn = e.target.querySelector('button[type="submit"]');
+            
+            const originalText = btn.innerText;
+            btn.innerText = "Transmitting...";
+            btn.classList.add('opacity-70');
+
+            try {
+                // Using Formspree endpoint from original file
+                const response = await fetch('https://formspree.io/f/xyzpqabc', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, subject, message })
+                });
+
+                if (response.ok) {
+                    alert('✅ Transmission successful! Message received.');
+                    document.getElementById('contactForm').reset();
+                } else {
+                    // Fallback
+                    window.location.href = `mailto:charanaduri@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name)}`;
+                }
+            } catch (error) {
+                window.location.href = `mailto:charanaduri@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name)}`;
+            } finally {
+                btn.innerText = originalText;
+                btn.classList.remove('opacity-70');
+            }
+        });
+    </script>
+</body>
+</html>
